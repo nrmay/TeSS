@@ -4,6 +4,7 @@
 
 TeSS is a Rails 5 application.
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/053e1a2b27f447099886aacd100975fc)](https://app.codacy.com/gh/nrmay/TeSS?utm_source=github.com&utm_medium=referral&utm_content=nrmay/TeSS&utm_campaign=Badge_Grade_Settings)
 [![Build Status](https://travis-ci.com/nrmay/TeSS.svg?branch=master)](https://travis-ci.com/nrmay/TeSS)
 [![Coverage Status](https://coveralls.io/repos/github/nrmay/TeSS/badge.svg?branch=master)](https://coveralls.io/github/nrmay/TeSS?branch=master)
 
