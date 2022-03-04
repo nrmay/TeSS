@@ -1,8 +1,29 @@
 # Version Change Log
 The sections below refer to the release tags for this repository:
+## [Version 1.3.5](https://github.com/nrmay/TeSS/releases/tag/v1.3.5)
+
+Deployed: *4<sup>th</sup> March, 2022*
+
+- Features:
+  - [Fields of Research: add codes to resources](https://github.com/nrmay/TeSS/issues/69)
+
+
+- Updates:
+  - [Content Provider: add contact email](https://github.com/nrmay/TeSS/issues/263)
+  - [Auto-Ingestion: iCalendar ingestion](https://github.com/nrmay/TeSS/issues/272)
+  - [Auto-Ingestion: material field updates](https://github.com/nrmay/TeSS/issues/305)
+  - [Auto-Ingestion: support html descriptions](https://github.com/nrmay/TeSS/issues/316)
+
+
+- Fixes:
+  - [Security: upgrade rails and sidekiq](https://github.com/nrmay/TeSS/issues/309)
+  - [CircleCI: update image](https://github.com/nrmay/TeSS/issues/310)
+
+
+---
 ## [Version 1.3.4](https://github.com/nrmay/TeSS/releases/tag/v1.3.4)
 
-Deployed: *31<sup>st</sup> Jan, 2022*
+Deployed: *31<sup>st</sup> January, 2022*
 
 Theme: *Auto-ingestion Beta Testing*
 
@@ -26,7 +47,7 @@ Theme: *Auto-ingestion Beta Testing*
 ---
 ## [Version 1.3.3](https://github.com/nrmay/TeSS/releases/tag/v1.3.3)
 
-Deployed: *1<sup>st</sup> Dec, 2021*
+Deployed: *1<sup>st</sup> December, 2021*
 
 Theme: *Sustainability*
 
