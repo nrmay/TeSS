@@ -14,51 +14,62 @@ class IngestorEvent < Ingestor
   end
 
   def write (user, provider)
-    processed = 0
-    updated = 0
-    added = 0
-    @events.each do |event|
-      processed += 1
+    unless @events.nil? or @events.empty?
+      # process each event
+      @events.each do |event|
+        @processed += 1
 
-      # check for matched events
-      matched_events = Event.where(title: event.title,
-                                   url: event.url,
-                                   start: event.start,
-                                   content_provider: provider)
+        # check for matched events
+        begin
+          matched_events = Event.where(title: event.title,
+                                       url: event.url,
+                                       start: event.start,
+                                       content_provider: provider)
 
-      if matched_events.nil? or matched_events.first.nil?
-        # set ingestion parameters and save new event
-        event.user = user
-        event.content_provider = provider
-        event.scraper_record = true
-        event.last_scraped = DateTime.now
-        event = set_field_defaults event
-        if valid_event? event
-          event.save!
-          added += 1
+          if matched_events.nil? or matched_events.first.nil?
+            # set ingestion parameters and save new event
+            event.user = user
+            event.content_provider = provider
+            event.scraper_record = true
+            event.last_scraped = DateTime.now
+            event = set_field_defaults event
+            save_valid_event event, false
+          else
+            # update and save matched event
+            matched = overwrite_fields matched_events.first, event
+            matched = set_field_defaults matched
+            matched.scraper_record = true
+            matched.last_scraped = DateTime.now
+            save_valid_event matched, true
+          end
+        rescue Exception => e
+          @messages << "#{self.class.name}: write events failed with: #{e.message}"
         end
-
-      else
-        # update and save matched event
-        matched = overwrite_fields matched_events.first, event
-        matched = set_field_defaults matched
-        matched.scraper_record = true
-        matched.last_scraped = DateTime.now
-        if valid_event? matched
-          matched.save!
-          updated += 1
-        end
-
       end
-
     end
-    written = (added + updated)
-    Scraper.log self.class.name +
-                  ": events added[#{added}] updated[#{updated}] rejected[#{processed - written}]", 3
-    return written
+
+    # finished
+    @messages << "events processed[#{@processed}] added[#{@added}] updated[#{@updated}] rejected[#{@rejected}]"
+    return
   end
 
   private
+
+  def save_valid_event(resource, matched)
+    if resource.valid?
+      resource.save!
+      matched ? @updated += 1 : @added += 1
+    elsif resource.expired?
+      @rejected += 1
+      @messages << "Event has expired: #{resource.title}"
+    else
+      @rejected += 1
+      @messages << "Event failed validation: #{resource.title}"
+      resource.errors.full_messages.each do |m|
+        @messages << "Error: #{m}"
+      end
+    end
+  end
 
   def overwrite_fields (old_event, new_event)
     # overwrite unlocked attributes
@@ -105,22 +116,6 @@ class IngestorEvent < Ingestor
     return event
   end
 
-  def valid_event? (event)
-    # check valid
-    if event.valid? and !event.expired?
-      return true
-    else
-      # log error messages
-      Scraper.log "Event title[#{event.title}] failed validation.", 4
-      Scraper.log "Event title[#{event.title}] error: event has expired", 5 if event.expired?
-      event.errors.full_messages.each do |message|
-        Scraper.log "Event title[#{event.title}] error: " + message, 5
-      end
-      return false
-    end
-
-  end
-
   def convert_eligibility(input)
     case input
     when 'first_come_first_served'
@@ -135,7 +130,13 @@ class IngestorEvent < Ingestor
   end
 
   def convert_event_types(input)
-    case input
+    case input.downcase
+    when 'conference'
+      'conference'
+    when 'class'
+      'workshop'
+    when 'networking'
+      'meeting'
     when 'meetings_and_conferences'
       'meeting'
     when 'workshops_and_courses'
@@ -175,4 +176,3 @@ class IngestorEvent < Ingestor
   end
 
 end
-

@@ -25,6 +25,28 @@ class ActiveSupport::TestCase
 
   # Add more helper methods to be used by all tests here...
 
+  # reset dictionaries to their default values
+  def reset_dictionaries
+    dictionaries = TeSS::Config.dictionaries
+    # reset default dictionary files
+    dictionaries['difficulty'] = DifficultyDictionary::DEFAULT_FILE
+    dictionaries['eligibility'] = EligibilityDictionary::DEFAULT_FILE
+    dictionaries['event_types'] = EventTypeDictionary::DEFAULT_FILE
+    dictionaries['cost_basis'] = CostBasisDictionary::DEFAULT_FILE
+    dictionaries['material_type'] = MaterialTypeDictionary::DEFAULT_FILE
+    dictionaries['material_status'] = MaterialStatusDictionary::DEFAULT_FILE
+    dictionaries['target_audience'] = TargetAudienceDictionary::DEFAULT_FILE
+    dictionaries['trainer_experience'] = TrainerExperienceDictionary::DEFAULT_FILE
+    DifficultyDictionary.instance.reload
+    EligibilityDictionary.instance.reload
+    EventTypeDictionary.instance.reload
+    CostBasisDictionary.instance.reload
+    MaterialTypeDictionary.instance.reload
+    MaterialStatusDictionary.instance.reload
+    TargetAudienceDictionary.instance.reload
+    TrainerExperienceDictionary.instance.reload
+  end
+
   # override Time.now for testing calendars, etc.
   def freeze_time(fixed_time=Time.now, &block)
     Time.stub(:now, fixed_time) do
@@ -94,7 +116,18 @@ class ActiveSupport::TestCase
     pawsey_ical_7 = File.read(File.join(Rails.root, ['test', 'fixtures', 'files', 'icalendar', 'pawsey-intern-showcase-2022.ics']))
     pawsey_ical_8 = File.read(File.join(Rails.root, ['test', 'fixtures', 'files', 'icalendar', 'pcon-embracing-new-solutions-for-in-situ-visualisation.ics']))
     pawsey_ical_9 = File.read(File.join(Rails.root, ['test', 'fixtures', 'files', 'icalendar', 'pawsey-intern-showcase-2021.ics']))
+    pawsey_ical_a = File.read(File.join(Rails.root, ['test', 'fixtures', 'files', 'icalendar', 'pawsey-supercomputing-centre-5cd096b58d0.ics']))
 
+    # eventbrite object files
+    eventbrite_ardc_body = File.read(File.join(Rails.root, 'test', 'fixtures', 'files', 'eventbrite', 'eventbrite_ardc.json'))
+    eventbrite_ardc_2_body = File.read(File.join(Rails.root, 'test', 'fixtures', 'files', 'eventbrite', 'eventbrite_ardc_2.json'))
+    eventbrite_organizer_14317910674 = File.read(File.join(Rails.root, ['test', 'fixtures', 'files', 'eventbrite', 'organizer_14317910674.json']))
+    eventbrite_organizer_8082048069 = File.read(File.join(Rails.root, ['test', 'fixtures', 'files', 'eventbrite', 'organizer_8082048069.json']))
+    eventbrite_venue_88342919 = File.read(File.join(Rails.root, ['test', 'fixtures', 'files', 'eventbrite', 'venue_88342919.json']))
+    eventbrite_categories = File.read(File.join(Rails.root, ['test', 'fixtures', 'files', 'eventbrite', 'categories.json']))
+    eventbrite_categories_101 = File.read(File.join(Rails.root, ['test', 'fixtures', 'files', 'eventbrite', 'categories_101.json']))
+    eventbrite_categories_102 = File.read(File.join(Rails.root, ['test', 'fixtures', 'files', 'eventbrite', 'categories_102.json']))
+    eventbrite_formats = File.read(File.join(Rails.root, ['test', 'fixtures', 'files', 'eventbrite', 'formats.json']))
 
     # 200 - success
     WebMock.stub_request(:get, 'https://app.com/events.csv').
@@ -136,6 +169,31 @@ class ActiveSupport::TestCase
       to_return(status: 200, headers: {}, body: pawsey_ical_8)
     WebMock.stub_request(:get, 'https://pawsey.org.au/event/pawsey-intern-showcase-2021/?ical=true').
       to_return(status: 200, headers: {}, body: pawsey_ical_9)
+    WebMock.stub_request(:get, 'https://pawsey.org.au/event/eoi-1-day-introduction-to-amd-gpus-amd-instinct-architecture-and-rocm/?ical=true').
+      to_return(status: 200, headers: {}, body: pawsey_ical_a)
+
+
+    # eventbrite objects
+    WebMock.stub_request(:get,'https://www.eventbriteapi.com/v3/organizations/34338661734/events/?token=YXAKB2UNBVO7FV5SJHQA').
+      to_return(status: 200, headers: {}, body: eventbrite_ardc_body)
+    WebMock.stub_request(:get,'https://www.eventbriteapi.com/v3/organizations/34338661734/events/?page=2&token=YXAKB2UNBVO7FV5SJHQA').
+      to_return(status: 200, headers: {}, body: eventbrite_ardc_2_body)
+    WebMock.stub_request(:get,'https://www.eventbriteapi.com/v3/organizations/34338661734/events/?status=live&token=YXAKB2UNBVO7FV5SJHQA').
+      to_return(status: 200, headers: {}, body: eventbrite_ardc_2_body)
+    WebMock.stub_request(:get, 'https://www.eventbriteapi.com/v3/organizers/14317910674/?token=YXAKB2UNBVO7FV5SJHQA').
+      to_return(status: 200, headers: {}, body: eventbrite_organizer_14317910674 )
+    WebMock.stub_request(:get, 'https://www.eventbriteapi.com/v3/organizers/8082048069/?token=YXAKB2UNBVO7FV5SJHQA').
+      to_return(status: 200, headers: {}, body: eventbrite_organizer_8082048069 )
+    WebMock.stub_request(:get, 'https://www.eventbriteapi.com/v3/venues/88342919/?token=YXAKB2UNBVO7FV5SJHQA').
+      to_return(status: 200, headers: {}, body: eventbrite_venue_88342919 )
+    WebMock.stub_request(:get, 'https://www.eventbriteapi.com/v3/categories/?token=YXAKB2UNBVO7FV5SJHQA').
+      to_return(status: 200, headers: {}, body: eventbrite_categories )
+    WebMock.stub_request(:get, 'https://www.eventbriteapi.com/v3/categories/101/?token=YXAKB2UNBVO7FV5SJHQA').
+      to_return(status: 200, headers: {}, body: eventbrite_categories_101 )
+    WebMock.stub_request(:get, 'https://www.eventbriteapi.com/v3/categories/102/?token=YXAKB2UNBVO7FV5SJHQA').
+      to_return(status: 200, headers: {}, body: eventbrite_categories_102 )
+    WebMock.stub_request(:get, 'https://www.eventbriteapi.com/v3/formats/?token=YXAKB2UNBVO7FV5SJHQA').
+      to_return(status: 200, headers: {}, body: eventbrite_formats )
 
     # 404 - not found
     WebMock.stub_request(:get, 'https://dummy.com').to_return(:status => 404)
@@ -147,6 +205,7 @@ class ActiveSupport::TestCase
     WebMock.stub_request(:get, 'https://zenodo.org/api/records/?communities=dummy').to_return(:status => 404)
     WebMock.stub_request(:get, 'https://missing.org/sitemap.xml').to_return(:status => 404)
     WebMock.stub_request(:get, 'https://pawsey.org.au/events/?ical=true').to_return(:status => 404)
+    WebMock.stub_request(:get, 'https://www.eventbriteapi.com/v3/organizations/34338661734').to_return(:status => 404)
   end
 
   def mock_biotools

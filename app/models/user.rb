@@ -23,13 +23,14 @@ class User < ApplicationRecord
   end
 
   has_one :profile, inverse_of: :user, dependent: :destroy
-  CREATED_RESOURCE_TYPES = [:events, :materials, :workflows, :content_providers]
+  CREATED_RESOURCE_TYPES = [:events, :materials, :workflows, :content_providers, :sources]
   has_many :materials
   has_many :packages, dependent: :destroy
   has_many :workflows, dependent: :destroy
   has_many :content_providers
   has_many :events
   has_many :nodes
+  has_many :sources
   belongs_to :role, optional: true
   has_many :subscriptions, dependent: :destroy
   has_many :stars, dependent: :destroy
@@ -46,7 +47,6 @@ class User < ApplicationRecord
   before_destroy :reassign_owner
   after_update :react_to_role_change
   before_save :set_username_for_invitee
-
 
   # Include default devise modules. Others available are: :lockable, :timeoutable
   if TeSS::Config.feature['registration']
@@ -80,7 +80,7 @@ class User < ApplicationRecord
 
   scope :accepteds, -> { invited.where.not(invitation_accepted_at: nil) }
 
-  scope :visible, -> { non_default.where(invitation_token: nil ).or(accepteds) }
+  scope :visible, -> { non_default.where(invitation_token: nil).or(accepteds) }
   # ---
 
   def self.find_for_database_authentication(warden_conditions)
@@ -276,8 +276,10 @@ class User < ApplicationRecord
   def get_editable_providers
     result = self.editables
     ContentProvider.all.each do |prov|
-      if !result.include?(prov) and prov.user == self
-        result << prov
+      if !result.include?(prov)
+        if prov.user == self or self.is_admin? or self.is_curator?
+          result << prov
+        end
       end
     end
     result.sort_by { |obj| obj.title }

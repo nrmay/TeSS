@@ -9,36 +9,55 @@ class IngestorMaterialCsv < IngestorMaterial
   end
 
   def read (url)
-    web_contents = open(url).read
-    table = CSV.parse(web_contents, headers: true)
-    processed = 0
+    begin
+      # parse table
+      web_contents = open(url).read
+      table = CSV.parse(web_contents, headers: true)
 
-    # process each row
-    table.each do |row|
-      # copy values
-      material = Material.new
-      material.title = row['Title']
-      material.url = row['URL']
-      material.description = process_description(row['Description'])
-      material.keywords = row['Keywords'].split(/[;\s]/).reject(&:empty?).compact
-      material.contact = row['Contact']
-      material.licence = row['Licence']
-      material.status = row['Status']
-      material.authors = row['Authors'].split(/[;]/).reject(&:empty?).compact if row['Authors']
-      material.contributors = row['Contributors'].split(/[;]/).reject(&:empty?).compact if row['Contributors']
-      material.doi = row['DOI']
+      # process each row
+      table.each do |row|
+        # copy values
+        material = Material.new
+        material.title = get_column row, 'Title'
+        material.url = process_url row, 'URL'
+        material.description = process_description row, 'Description'
+        material.keywords = process_array row, 'Keywords'
+        material.contact = get_column row, 'Contact'
+        material.licence = get_column row, 'Licence'
+        material.status = get_column row, 'Status'
 
-      add_material(material)
-      processed += 1
+        # copy optional values
+        material.doi = get_column row, 'DOI'
+        material.version = get_column row, 'Version'
+        material.date_published = get_column row, 'Published'
+        material.date_modified = get_column row, 'Modified'
+        material.difficulty_level = process_competency row, 'Competency'
+        material.authors = process_array row, 'Authors'
+        material.contributors = process_array row, 'Contributors'
+        material.fields = process_array row, 'Fields'
+        material.target_audience = process_array row, 'Audiences'
+        material.resource_type = process_array row, 'Types'
+        material.other_types = get_column row, 'Other Types'
+        material.learning_objectives = process_description row, 'Objectives'
+        material.prerequisites = process_description row, 'Prerequisites'
+        material.syllabus = process_description row, 'Syllabus'
+
+        # add to
+        add_material material
+        @ingested += 1
+      end
+    rescue CSV::MalformedCSVError => mce
+      @messages << "parse table failed with: #{mce.message}"
     end
-    Scraper.log self.class.name + ': materials extracted = ' + processed.to_s, 3
+
+    # finished
     return processed
   end
 
   private
 
-  def process_description (input)
-    convert_description(input.gsub!('"', '')) unless input.nil?
+  def process_competency(row,header)
+    row[header].nil? ? 'notspecified' : row[header]
   end
 
 end

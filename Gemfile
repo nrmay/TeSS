@@ -59,6 +59,7 @@ gem 'slim'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
+gem 'jquery-qtip2-wrapper-rails'
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
@@ -145,6 +146,9 @@ gem 'rest-client'
 # for converting html to markdown
 gem 'reverse_markdown'
 gem 'nokogiri', '~>1.13.3'
+
+# eventbrite api
+gem 'eventbrite_sdk'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-clipboard', '~> 1.5.12'
