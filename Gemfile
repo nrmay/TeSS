@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+#
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
@@ -17,6 +18,9 @@ gem 'sass-rails', '~> 5.0'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
+
+# See https://github.com/rails/execjs#readme for more supported runtimes
+#gem 'therubyracer'#, platforms: :ruby
 
 # CRUD of resources via a UI
 gem 'rails_admin'
@@ -90,6 +94,7 @@ gem 'redcarpet', '~> 3.5.1'
 
 # Gem for paginating search results
 gem 'will_paginate'
+# gem 'will_paginate-bootstrap', '~> 1.0.1'
 
 # Gem for authorisation
 gem 'pundit', '~> 1.1.0'
@@ -99,6 +104,15 @@ gem 'jquery-simplecolorpicker-rails'
 
 # For getting date of materials for the home page
 gem 'by_star', '~> 2.2.1' #, git: 'git://github.com/radar/by_star.git', tag: 'v2.2.1'
+
+# Use ActiveModel has_secure_password
+# gem 'bcrypt', '~> 3.1.7'
+
+# Use Unicorn as the app server
+#gem 'unicorn'
+
+# Use Capistrano for deployment
+# gem 'capistrano-rails', group: :development
 
 gem 'handlebars_assets'
 
@@ -145,7 +159,6 @@ gem 'rest-client'
 
 # for converting html to markdown
 gem 'reverse_markdown'
-gem 'nokogiri', '~>1.13.3'
 
 # eventbrite api
 gem 'eventbrite_sdk'

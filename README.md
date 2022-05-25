@@ -112,11 +112,9 @@ This will install Rails, as well as any other gem that the TeSS app needs as spe
 
 From the app's root directory, create the configuration files by copying the examples.
 
-    cp config/tess.example.yml config/tess.yml
-    cp config/secrets.example.yml config/secrets.
-    cp config/sunspot.example.yml config/sunspot.yml
-    cp config/ingestion.example.yml config/ingestion.yml
-
+    cp config/tess.example.yml config/tess.yml;
+    cp config/secrets.example.yml config/secrets.yml; 
+    
 #### Configure TeSS
 Edit ```/config/tess.yml``` to override the default configuration. 
 
@@ -152,15 +150,9 @@ Create the postgresql databases by running the task:
 
 Start the Sidekiq service by running the command: 
 
-    bundle exec sidekiq --daemon
+    bundle exec sidekiq &
 
-### Running the Test Cases
-Set the environment parameter:
-
-    rails db:environment:set RAILS_ENV=test
-
-TeSS uses Apache Solr to power its search and filtering system.
-
+TeSS uses Apache Solr to power its search and filtering system. 
 To start solr:
 
     rake sunspot:solr:start
@@ -168,10 +160,19 @@ To start solr:
 
 You can replace *start* with *stop* or *restart* to stop or restart solr. You can use *reindex* to reindex all records.
 
-Prepare the test database and run the test cases:
+### Running the Test Cases
+Set up and prepare the test database:
 
-    rake db:setup
-    rake db:test:prepare
+    rake db:setup RAILS_ENV=test
+    rake db:test:prepare RAILS_ENV=test
+
+Start/restart solr:
+
+    rake sunspot:solr:restart RAILS_ENV=test
+    rake sunspot:solr:reindex RAILS_ENV=test
+
+Run the test cases:
+
     rake test
 
 ### Running the Development Environment
@@ -182,7 +183,7 @@ Set the environment parameter:
 To restart solr, run:
 
     rake sunspot:solr:restart
-    rake sunspot:solr:reindex
+    rake sunspot:solr:reindex <<< fails: Http - 404 Not Found
 
 Prepare the database:
 
@@ -224,7 +225,7 @@ Be sure to stop the web server before converting over to the production environm
 
 Generate the following additional secrets for production environment:
   - secret key: ```rake secret```
-  - database user: see [PostgreSQL](#postgresql) set-up      
+  - database user: see - [PostgreSQL Set-up](#postgresql-set-up)      
 
 Set the environment variables in ```/etc/environment```, including:
     
@@ -232,24 +233,33 @@ Set the environment variables in ```/etc/environment```, including:
     SECRET_KEY_BASE=<generated secret key> 
     PRODUCTION_DB_USER=<as above>
     PRODUCTION_DB_PASSWORD=<as above>
+    PROCUCTION_GANAL_CODE=<see below>
+    PRODUCTION_GMAPS_KEY=<see below>
+
+**Note**: Google Analytics and Gmaps API keys can be acquired by registering 
+for an account with Google Cloud and creating the keys via the following pages. 
+
+  - [Google Cloud](https://clound.google.com/) : Getting Started
+  - [Google Analytics Code](https://analytics.google.com) : Admin > Data Streams > Use the ```Measurement ID``` of the appropriate stream.
+  - [Google Maps API key](https://console.cloud.google.com/google/maps-apis/credentials)
 
 Set the environment parameter:
 
-    rails db:environment:set RAILS_ENV=development
+    rails db:environment:set RAILS_ENV=production
+
+Restart and reindex Solr:
+
+    rake sunspot:solr:restart RAILS_ENV=production
+    rake sunspot:solr:reindex RAILS_ENV=production
 
 Set-up the production database:
 
     unset XDG_RUNTIME_DIR     
-    rake db:reset 
+    rake db:reset RAILS_ENV=production DISABLE_DATABASE_ENVIRONMENT_CHECK=1
 
 ... which will do db:drop, db:create, db:schema:load, db:seed.
 
-Restart and reindex Solr:
-
-    rake sunspot:solr:restart
-    rake sunspot:solr:reindex
-
-Create an admin user (see above).
+Create an admin user (see [Setup Administrators](#setup-administrators)).
 
 The first time and each time a css or js file is updated:
 
@@ -262,21 +272,20 @@ Restart and check the web server and the ```log/production.log``` file.
 
 Make sure the web server is stopped, and stop the following services:
 
-    service stop nginx
-    service stop unicor_tess
+    sudo service nginx stop;
 
 Apply a fix for the Nginx PId bug:
  
     sudo -E bash
-    mkdir /etc/systemd/system/nginx.service.d
-    printf "[Service]\nExecStartPost=/bin/sleep 0.1\n" > /etc/systemd/system/nginx.service.d
-    systemctl daemon-reload
+    mkdir /etc/systemd/system/nginx.service.d;
+    printf "[Service]\nExecStartPost=/bin/sleep 0.1\n" > /etc/systemd/system/nginx.service.d/override.conf;
+    systemctl daemon-reload;
     exit
 
 Set-up and run the Unicorn service:
 
     mkdir -p shared/{pids,sockets,log}
-    sudo sp unicorn_tess /etc/init.d/unicorn_tess
+    sudo cp unicorn_tess /etc/init.d/unicorn_tess
     sudo chmod 755 /etc/init.d/unicorn_tess
     sudo update-rc.d unicorn_tess defaults
     sudo service unicorn_tess start
@@ -319,9 +328,7 @@ If there is an error, check the log file: ```/var/log/nginx/error.log```
 
 Create the self-signed certificate:
    
-    sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 
-        -keyout /etc/ssl/private/nginx-selfsigned.key 
-        -out /etc/ssl/certs/nginx-selfsigned.crt
+    sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/nginx-selfsigned.key -out /etc/ssl/certs/nginx-selfsigned.crt
 
 Create a strong dhparam
 
@@ -329,11 +336,11 @@ Create a strong dhparam
 
 Replace the sites available default file:
 
-    cp ssl-nginx.conf /etc/nginx/sites-available/default
+    sudo cp ssl-nginx.conf /etc/nginx/sites-available/default
 
 Create SSL parameters configuration:
    
-    cp ssl-params.conf /etc/nginx/snippets/ssl-params.conf
+    sudo cp ssl-params.conf /etc/nginx/snippets/ssl-params.conf
 
 Create self-signed configuration ```/etc/nginx/snippets/self-signed.conf``` 
 with the following contents:
@@ -420,3 +427,14 @@ Note: these scripts have been adapted from the repository:
 [fabioboris/postgresql-backup-restore-scripts](https://github.com/fabioboris/postgresql-backup-restore-scripts)
 -  made available under the MIT License (MIT)
 -  Copyright (c) 2013 Fabio Agostinho Boris &lt;fabioboris@gmail.com&gt;
+
+
+## Further Information
+- [DReSA Technical Notes](https://dresa.org.au/DReSA-Technical-Notes.pdf)
+  - Authentication via OpenID Connect service
+  - Google Analytics and Google Maps
+  - Scheduling Tasks
+  - Mail Delivery (via Google Mail or Mailing Service)
+  - Automated Ingestion
+  - Maintenance Tasks
+  - Links, etc.
