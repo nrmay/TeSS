@@ -168,7 +168,11 @@ Run test cases:
     rake db:test:prepare
     rake test
 
-Set the environment parameter:
+Check if the development environment is set:
+
+    rails runner "puts Rails.env"
+
+... and set the environment parameter, if required:
 
     rails db:environment:set RAILS_ENV=development
 
@@ -230,6 +234,13 @@ for an account with Google Cloud and creating the keys via the following pages.
   - [Google Analytics Code](https://analytics.google.com) : Admin > Data Streams > Use the ```Measurement ID``` of the appropriate stream.
   - [Google Maps API key](https://console.cloud.google.com/google/maps-apis/credentials)
 
+Set-up the production database:
+
+    ## unset XDG_RUNTIME_DIR     
+    rake db:setup RAILS_ENV=production
+
+... which will do db:create, db:schema:load, db:seed.
+
 Set the environment parameter:
 
     rails db:environment:set RAILS_ENV=production
@@ -239,13 +250,6 @@ Restart and reindex Solr:
     rake sunspot:solr:stop
     rake sunspot:solr:start RAILS_ENV=production
     rake sunspot:solr:reindex RAILS_ENV=production
-
-Set-up the production database:
-
-    unset XDG_RUNTIME_DIR     
-    rake db:reset RAILS_ENV=production DISABLE_DATABASE_ENVIRONMENT_CHECK=1
-
-... which will do db:drop, db:create, db:schema:load, db:seed.
 
 Create an admin user (see [Setup Administrators](#setup-administrators)).
 
