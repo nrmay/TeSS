@@ -15,8 +15,6 @@ TeSS is a Rails 5 application.
   - [Clone the TeSS repository](#clone-the-tess-repository)
   - [Install Ruby and Gems](#install-ruby-and-gems)
   - [Configuring the TeSS application](#configuring-the-tess-application)
-  - [Running the Test Cases](#running-the-test-cases)
-  - [Running the Development Environment](#running-the-development-environment)
   - [Running the Production Environment](#running-the-production-environment)
 - [Migrate to Unicorn and Nginx](#migrate-to-unicorn-and-nginx)
 - [Migrate to Secure Socket Layer (https)](#migrate-to-secure-socket-layer-https)
@@ -44,12 +42,15 @@ TeSS requires the following system packages to be installed:
 - Redis
 - Yarn
 
-Install the appropriate packages and enable RVM on an Ubuntu-like OS;
+Install the appropriate packages on an Ubuntu-like OS:
 
     sudo apt-add-repository -y ppa:rael-gc/rvm 
     sudo apt update -y
-    sudo apt install git postgresql postgresql-contrib libpq-dev libnode-dev nodejs imagemagick openjdk-8-jre redis-server rvm nginx logrotate yarn
+    sudo apt install -y git postgresql postgresql-contrib libpq-dev libnode-dev nodejs imagemagick openjdk-8-jre redis-server rvm nginx logrotate yarn
     sudo apt upgrade -y
+
+... and enable RVM (use ```who``` to find the current user):
+
     sudo usermod -a -G rvm <current user>
 
 ... then re-login to enable rvm.
@@ -94,11 +95,13 @@ installed, plus a whole lot more (e.g. gemsets). Full installation instructions 
 #### Bundler
 Bundler provides a consistent environment for Ruby projects by tracking and installing the exact gems and versions that are needed for your Ruby application.
 
-To install it, you can do:
+To update the gem system and install the bundler, you can do:
 
+    gem update --system
     gem install bundler
 
-Note that program ```gem``` (a package management framework for Ruby called RubyGems) gets installed when you install RVM so you do not have to install it separately.
+**Note**: ```gem``` is a program that intefaces with the package management 
+framework for Ruby, called RubyGems, and will be installed when you install RVM.
 
 #### Gems
 
@@ -114,9 +117,12 @@ From the app's root directory, create the configuration files by copying the exa
 
     cp config/tess.example.yml config/tess.yml;
     cp config/secrets.example.yml config/secrets.yml; 
+    cp config/ingestion.example.yml config/ingestion.yml; 
     
 #### Configure TeSS
 Edit ```/config/tess.yml``` to override the default configuration. 
+
+Set the ```base_url``` parameter to the domain name or IP Address of the instance.
 
 Create a new top level element (like ```elixir``` or ```dresa```) and add the override parameters below, such as:
 
@@ -144,46 +150,27 @@ try prefixing the command with ```bundle exec``` , such as:
 
 #### Post-configuration tasks
 
-Create the postgresql databases by running the task:
-
-    rake db:create:all
-
-Start the Sidekiq service by running the command: 
-
-    bundle exec sidekiq &
-
-TeSS uses Apache Solr to power its search and filtering system. 
+TeSS uses Apache Solr to power its search and filtering system.
 To start solr:
 
     rake sunspot:solr:start
-    rake sunspot:solr:reindex
 
 You can replace *start* with *stop* or *restart* to stop or restart solr. You can use *reindex* to reindex all records.
 
-### Running the Test Cases
-Set up and prepare the test database:
+Start the Sidekiq service by running the command:
 
+    bundle exec sidekiq &
+
+Run test cases: 
+
+    rake db:create:all
     rake db:setup RAILS_ENV=test
-    rake db:test:prepare RAILS_ENV=test
-
-Start/restart solr:
-
-    rake sunspot:solr:restart RAILS_ENV=test
-    rake sunspot:solr:reindex RAILS_ENV=test
-
-Run the test cases:
-
+    rake db:test:prepare
     rake test
 
-### Running the Development Environment
 Set the environment parameter:
 
     rails db:environment:set RAILS_ENV=development
-
-To restart solr, run:
-
-    rake sunspot:solr:restart
-    rake sunspot:solr:reindex <<< fails: Http - 404 Not Found
 
 Prepare the database:
 
@@ -249,7 +236,8 @@ Set the environment parameter:
 
 Restart and reindex Solr:
 
-    rake sunspot:solr:restart RAILS_ENV=production
+    rake sunspot:solr:stop
+    rake sunspot:solr:start RAILS_ENV=production
     rake sunspot:solr:reindex RAILS_ENV=production
 
 Set-up the production database:
