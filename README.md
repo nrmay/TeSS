@@ -379,51 +379,12 @@ to be converted to unix format:
     dos2unix /etc/ssl/private/<private key file>
     dos2unix /etc/ssl/certs/<new bundle file>
 
-## Database Backup and Restore
-
-The following scripts can be used to backup and restore the database:
-
-     sh scripts/pgsql_backup.sh
-
-     sh scripts/pgsql_restore.sh
-
-Or, you can run the backup script as follows:
-
-    sh scripts/pgsql_backup.sh tess_user tess_development ./shared/backups --exclude-schema=audit
-
-The parameters are as follows:
-
-1.  user: e.g. *tess_user*
-2.  database: e.g. *tess_development*, *tess_production*
-3.  backup folder: e.g. ./shared/backups
-4.  addtional parameters: e.g. --excluded-schema=audit
-
-Note: sql files are stored with timestamped names as follows:
-
--  folder/database.YYYYMMDD-HHMMSS.\[schema,data\].sql
--  eg. ~/TeSS/shared/backups/tess_development-20210524-085138.data.sql
-
-And, you can run the restore script as follows:
-
-    sh scripts/pgsql_restore.sh tess_user tess_production ./shared/backups/tess_production.20210524-085138.schema.sql ./shared/backups/tess_production.20210524-085138.data.sql
-
-With the parameters:
-
-1.  user: e.g. *tess_user*
-2.  database: e.g. *tess_development*, *tess_production*
-3.  schema file: e.g. ./shared/backups/tess_development.20210524-085138.schema.sql
-4.  data file: e.g. ./shared/backups/tess_development.20210524-085138.data.sql
-
-
-Note: these scripts have been adapted from the repository: 
-[fabioboris/postgresql-backup-restore-scripts](https://github.com/fabioboris/postgresql-backup-restore-scripts)
--  made available under the MIT License (MIT)
--  Copyright (c) 2013 Fabio Agostinho Boris &lt;fabioboris@gmail.com&gt;
-
+Check the status or the certificate chain: 
+[SSL Certificate Checker (sslchecker.com)](https://www.sslchecker.com/sslchecker)
 
 ## Further Information
 - [DReSA Technical Notes](https://dresa.org.au/DReSA-Technical-Notes.pdf)
-  - Authentication via OpenID Connect service
+  - Authentication via OpenID Connect
   - Google Analytics and Google Maps
   - Scheduling Tasks
   - Mail Delivery (via Google Mail or Mailing Service)
