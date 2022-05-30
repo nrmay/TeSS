@@ -2,7 +2,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.2.6.2'
+gem 'rails', '~> 5.2.8'
 
 gem "bootsnap", ">= 1.1.0", require: false # New Rails 5.2 default gem
 
@@ -108,6 +108,8 @@ gem 'icalendar', '~> 2.4.1'
 
 gem 'bootstrap-datepicker-rails', '~> 1.6.4.1'
 
+gem 'rack', '~> 2.2.3.1'
+
 gem 'rack-cors', require: 'rack/cors'
 
 gem 'recaptcha', require: 'recaptcha/rails'
@@ -145,7 +147,7 @@ gem 'rest-client'
 
 # for converting html to markdown
 gem 'reverse_markdown'
-gem 'nokogiri', '~>1.13.3'
+gem 'nokogiri', '~> 1.13.6'
 
 # eventbrite api
 gem 'eventbrite_sdk'
@@ -182,7 +184,6 @@ group :development do
 end
 
 group :production do
-  gem 'therubyracer'
   gem 'unicorn'
   #gem 'passenger', '~> 5.1.11'
 end
