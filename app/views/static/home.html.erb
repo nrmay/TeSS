@@ -11,6 +11,8 @@
     "query-input": "required name=search_term_string"
   }
 }
+
+
 </script>
 
 <script type="application/ld+json">
@@ -20,12 +22,29 @@
   "url": "<%= root_url %>",
   "logo": "<%= image_url TeSS::Config.site['logo'] %>"
 }
+
+
 </script>
 
 <%# Welcome text %>
 <div class="welcome-text">
   <h2 class="module-heading" style="margin-top: 5px;"><%== raw t 'home.welcome' %></h2>
   <p><%== raw t 'home.subtitle' %></p>
+  <h4 class="text-center" style="margin-top: 1em;">
+    <div class="hidden-xs">Getting Started?
+      See our <%= link_to 'User Manual', '/DReSA-User-Manual.pdf', target: '_blank', style: 'color: #00b8b6' %>
+      and <%= link_to 'Video Guides', 'http://videos.dresa.org.au', target: '_blank', style: 'color: #00b8b6' %>
+    </div>
+    <div class="hidden-lg hidden-md hidden-sm">
+      <div>
+        Getting Started?
+      </div>
+      <div class="hidden-lg hidden-md hidden-sm">
+        See our <%= link_to 'User Manual', '/DReSA-User-Manual.pdf', target: '_blank', style: 'color: #00b8b6' %>
+        and <%= link_to 'Video Guides', 'http://videos.dresa.org.au', target: '_blank', style: 'color: #00b8b6' %>
+      </div>
+    </div>
+  </h4>
 </div>
 
 <%# Big search box %>
@@ -118,7 +137,7 @@
           <h4>Providers</h4>
           <%= image_tag("dresa/Training_Providers_Default.png", height: "#{@icon_height / 3}px", alt: "Providers") %>
         </div>
-    <% end %>
+      <% end %>
       <p><%== raw t 'home.providers_message' %></p>
     </li>
   <% end %>
@@ -126,18 +145,18 @@
   <% if TeSS::Config.feature['trainers'] == true %>
     <li class="<%= @liclass %>">
       <%= link_to trainers_path do %>
-      <div class="hidden-sm hidden-xs">
-        <h2>Trainers</h2>
-        <%= image_tag("dresa/Trainers_Default.png", height: "#{@icon_height}px", alt: "Trainers") %>
-      </div>
-      <div class="hidden-lg hidden-md hidden-xs">
-        <h2>Trainers</h2>
-        <%= image_tag("dresa/Trainers_Default.png", height: "#{@icon_height / 2}px", alt: "Trainers") %>
-      </div>
-      <div class="hidden-lg hidden-md hidden-sm">
-        <h4>Trainers</h4>
-        <%= image_tag("dresa/Trainers_Default.png", height: "#{@icon_height / 3}px", alt: "Trainers") %>
-      </div>
+        <div class="hidden-sm hidden-xs">
+          <h2>Trainers</h2>
+          <%= image_tag("dresa/Trainers_Default.png", height: "#{@icon_height}px", alt: "Trainers") %>
+        </div>
+        <div class="hidden-lg hidden-md hidden-xs">
+          <h2>Trainers</h2>
+          <%= image_tag("dresa/Trainers_Default.png", height: "#{@icon_height / 2}px", alt: "Trainers") %>
+        </div>
+        <div class="hidden-lg hidden-md hidden-sm">
+          <h4>Trainers</h4>
+          <%= image_tag("dresa/Trainers_Default.png", height: "#{@icon_height / 3}px", alt: "Trainers") %>
+        </div>
       <% end %>
       <p><%== raw t 'home.trainers_message' %></p>
     </li>
