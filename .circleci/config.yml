@@ -24,7 +24,7 @@ jobs:
           name: install gems
           command: |
             pwd;
-            gem install bundler -v '~> 2.2.27'
+            gem install bundler -v '~> 2.3.8'
             bundle install;
             ruby --version;
             bundle --version;
