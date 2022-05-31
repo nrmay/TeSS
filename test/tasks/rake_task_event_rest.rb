@@ -98,7 +98,7 @@ class RakeTaskEventRest < ActiveSupport::TestCase
     source.enabled = true
     assert source.save
 
-    assert_difference 'Event.count', 13 do
+    assert_difference 'Event.count', 12 do
       # run task
       freeze_time(Time.new(2022, 01, 01)) do ||
         Rake::Task['tess:automated_ingestion'].invoke
@@ -216,11 +216,11 @@ class RakeTaskEventRest < ActiveSupport::TestCase
     assert_respond_to source, :log
     #noinspection RubyNilAnalysis
     refute_nil source.log
-    message = 'Eventbrite events ingestor: records read[18] inactive[5] expired[0]'
+    message = 'Eventbrite events ingestor: records read[18] inactive[5] expired[0] unlisted[1]'
     assert_includes source.log, message
 
     # check logfile messages
-    message = 'Source URL\[https://www.eventbriteapi.com/v3/organizations/34338661734\] resources read\[13\] and written\[13\]'
+    message = 'Source URL\[https://www.eventbriteapi.com/v3/organizations/34338661734\] resources read\[12\] and written\[12\]'
     assert logfile_contains(logfile, message), 'Message not found: ' + message
     message = 'Scraper.run: finish'
     assert logfile_contains(logfile, message), 'Message not found: ' + message
