@@ -88,7 +88,7 @@ class IngestorEventIcal < IngestorEvent
       end
 
       event.venue = calevent.location.to_s
-      if calevent.location.downcase.include?('online')
+      if calevent.location.nil? or calevent.location.downcase.include?('online')
         event.online = true
         event.city = nil
         event.postcode = nil
