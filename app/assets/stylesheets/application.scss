@@ -245,7 +245,7 @@ div.wrapper {
 }
 
 #sidebar-header {
-  display: none;
+  display: block;
 
   @media (max-width: $screen-md-min) {
     display: block;

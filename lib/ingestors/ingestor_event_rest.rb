@@ -51,6 +51,7 @@ class IngestorEventRest < IngestorEvent
     records_read = 0
     records_inactive = 0
     records_expired = 0
+    records_unlisted = 0
 
     begin
       # initialise next_page
@@ -89,8 +90,14 @@ class IngestorEventRest < IngestorEvent
               event.timezone = item['start']['timezone']
               event.start = item['start']['local']
               event.end = item['end']['local']
+              listed = false
+              listed = true unless item['listed'].nil? or not item['listed']
+
+              # check expired or unlisted
               if event.expired?
                 records_expired += 1
+              elsif not listed
+                records_unlisted += 1
               else
                 # set required attributes
                 event.title = item['name']['text'] unless item['name'].nil?
@@ -167,7 +174,11 @@ class IngestorEventRest < IngestorEvent
     end
 
     # finished
-    @messages << "Eventbrite events ingestor: records read[#{records_read}] inactive[#{records_inactive}] expired[#{records_expired}]"
+    final_message = "Eventbrite events ingestor: records read[#{records_read}]" +
+      " inactive[#{records_inactive}]" +
+      " expired[#{records_expired}]" +
+      " unlisted[#{records_unlisted}]"
+    @messages << final_message
     return
   end
 

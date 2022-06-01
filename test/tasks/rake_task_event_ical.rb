@@ -57,7 +57,7 @@ class RakeTaskEventIcal < ActiveSupport::TestCase
     assert_equal 23, event_count, 'Pre-task: event count not matched.'
     provider = content_providers :another_portal_provider
     refute provider.nil?, "Content Provider not found."
-    Time.zone = 'Australia/Perth'
+    Time.zone = 'Perth'
 
     # check two events to be updated
     name = 'ical_event_1'
@@ -91,15 +91,15 @@ class RakeTaskEventIcal < ActiveSupport::TestCase
     end
 
     # post task validation
-    added = 4; updated = 2; rejected = 2;
+    added = 5; updated = 2; rejected = 1;
 
     # check individual events
     # check not found
-    check_logfile logfile, 'process file url\[https://pawsey.org.au/events/\?ical=true\] failed with: 404'
+    check_logfile logfile, 'Process file url\[https://pawsey.org.au/events/\?ical=true\] failed with: 404'
 
     # check rejected
-    check_logfile logfile, 'Event title\[NVIDIA cuQuantum Session\] error: City can\'t be blank'
-    check_logfile logfile, 'Event title\[PaCER Seminar: Radio astronomy\] error: event has expired'
+    check_logfile logfile, 'Event failed validation: NVIDIA cuQuantum Session'
+    check_logfile logfile, 'Error: City can\'t be blank'
 
     # check added
     title = 'Ask Me Anything: Porous media visualisation and LBPM'
@@ -112,10 +112,11 @@ class RakeTaskEventIcal < ActiveSupport::TestCase
     title = 'Pawsey Intern Showcase 2022'
     event = check_event_exists title, 'https://pawsey.org.au/event/pawsey-intern-showcase-2022/'
     desc = "The Pawsey Supercomputing Research Centre takes prides in its Summer Internship Program – " +
-      "working in partnership with bright students on challenging and interesting projects. \nLike last year, " +
+      "working in partnership with bright students on challenging and interesting projects.   \nLike last year, " +
       "this year’s Intern cohort more than doubled in size, now at 47 Interns, working with dozens of committed PIs " +
       "and supervisors around the country. The Intern Mentor Program also continues to grow and change, as does the " +
       "range of trainings we immerse students in during Week 1 of the Program (and throughout)."
+
     assert_equal desc.size, event.description.size, "event title[#{event.title}] description.size not matched"
     assert_equal desc, event.description, "event title[#{event.title}] description not matched"
     assert_equal Time.zone.name, event.timezone.to_s, "event title[#{event.title}] timezone not matched"
@@ -165,8 +166,8 @@ class RakeTaskEventIcal < ActiveSupport::TestCase
     assert event.city.nil?, "event title[#{event.title}] city not matched"
     assert event.country.nil?, "event title[#{event.title}] country not matched"
 
-    # TODO: check totals
-    check_logfile logfile, 'IngestorEventIcal: events added\[4\] updated\[2\] rejected\[2\]'
+    # check totals
+    check_logfile logfile, 'events processed\[8\] added\[5\] updated\[2\] rejected\[1\]'
     assert_equal event_count + added, Event.all.size, 'Post-task: event count not matched'
 
   end
@@ -182,7 +183,7 @@ class RakeTaskEventIcal < ActiveSupport::TestCase
     Time.zone = 'Australia/Perth'
 
     # override time
-    assert_no_difference 'Event.count'do
+    assert_no_difference 'Event.count' do
       freeze_time(stub_time = Time.new(2019)) do ||
         # run task
         Rake::Task['tess:automated_ingestion'].invoke

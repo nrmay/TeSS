@@ -1,5 +1,20 @@
 # Version Change Log
 The sections below refer to the release tags for this repository:
+## [Version 1.4.2](https://github.com/nrmay/TeSS/releases/tag/v1.4.2)
+
+Deployed: *31<sup>st</sup> May, 2022*
+
+- Updates:
+  - [Auto Ingestion: Eventbrite Rest API](https://github.com/nrmay/issues/325)
+  - [Readme: installation instructions](https://github.com/nrmay/issues/344)
+  - [Home Page: getting started links](https://github.com/nrmay/issues/353)
+  - [Filter Sidebar: add title](https://github.com/nrmay/TeSS/issues/251)
+
+
+- Fixes:
+  - [Footer: refactor layout flow](https://github.com/nrmay/issues/273)
+
+
 ## [Version 1.4.1](https://github.com/nrmay/TeSS/releases/tag/v1.4.1)
 
 Deployed: *3<sup>rd</sup> April, 2022*
