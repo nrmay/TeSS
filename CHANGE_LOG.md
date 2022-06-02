@@ -9,6 +9,7 @@ Deployed: *31<sup>st</sup> May, 2022*
   - [Readme: installation instructions](https://github.com/nrmay/issues/344)
   - [Home Page: getting started links](https://github.com/nrmay/issues/353)
   - [Filter Sidebar: add title](https://github.com/nrmay/TeSS/issues/251)
+  - [Ingestion Guide: highlight impact of changes](https://github.com/nrmay/TeSS/issues/354)
 
 
 - Fixes:
