@@ -8,7 +8,7 @@ jobs:
   build:  
     working_directory: '~/TeSS'
     docker: 
-      - image: cimg/ruby:2.5.8-node
+      - image: cimg/ruby:2.7.2-node
         environment: 
           PGHOST: localhost
           PGUSER: TeSS
@@ -24,7 +24,7 @@ jobs:
           name: install gems
           command: |
             pwd;
-            gem install bundler -v '~> 2.3.8'
+            gem install bundler -v '~> 2.3.14'
             bundle install;
             ruby --version;
             bundle --version;
