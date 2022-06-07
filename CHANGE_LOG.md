@@ -1,8 +1,8 @@
 # Version Change Log
 The sections below refer to the release tags for this repository:
-## [Version 1.4.2](https://github.com/nrmay/TeSS/releases/tag/v1.4.2)
+## [Version 1.4.2](https://github.com/dresa-org-au/TeSS/releases/tag/v1.4.2)
 
-Deployed: *6<sup>th</sup> June, 2022*
+Deployed: *7<sup>th</sup> June, 2022*
 
 - Updates:
   - [Auto Ingestion: Eventbrite Rest API](https://github.com/nrmay/issues/325)
@@ -17,7 +17,7 @@ Deployed: *6<sup>th</sup> June, 2022*
   - [Security Updates 3](https://github.com/nrmay/TeSS/issues/347)
 
 
-## [Version 1.4.1](https://github.com/nrmay/TeSS/releases/tag/v1.4.1)
+## [Version 1.4.1](https://github.com/dresa-org-au/TeSS/releases/tag/v1.4.1)
 
 Deployed: *3<sup>rd</sup> April, 2022*
 
@@ -25,7 +25,7 @@ Deployed: *3<sup>rd</sup> April, 2022*
   - [Event Timezones: validate and update keys](https://github.com/nrmay/TeSS/issues/338)
 
 
-## [Version 1.4.0](https://github.com/nrmay/TeSS/releases/tag/v1.4.0)
+## [Version 1.4.0](https://github.com/dresa-org-au/TeSS/releases/tag/v1.4.0)
 
 Deployed: *1<sup>st</sup> April, 2022*
 
@@ -44,7 +44,7 @@ Deployed: *1<sup>st</sup> April, 2022*
 
 
 ---
-## [Version 1.3.5](https://github.com/nrmay/TeSS/releases/tag/v1.3.5)
+## [Version 1.3.5](https://github.com/dresa-org-au/TeSS/releases/tag/v1.3.5)
 
 Deployed: *4<sup>th</sup> March, 2022*
 
@@ -65,7 +65,7 @@ Deployed: *4<sup>th</sup> March, 2022*
 
 
 ---
-## [Version 1.3.4](https://github.com/nrmay/TeSS/releases/tag/v1.3.4)
+## [Version 1.3.4](https://github.com/dresa-org-au/TeSS/releases/tag/v1.3.4)
 
 Deployed: *31<sup>st</sup> January, 2022*
 
@@ -89,7 +89,7 @@ Theme: *Auto-ingestion Beta Testing*
   - [Registration Switch Refactor](https://github.com/nrmay/TeSS/issues/155)
  
 ---
-## [Version 1.3.3](https://github.com/nrmay/TeSS/releases/tag/v1.3.3)
+## [Version 1.3.3](https://github.com/dresa-org-au/TeSS/releases/tag/v1.3.3)
 
 Deployed: *1<sup>st</sup> December, 2021*
 
@@ -108,7 +108,7 @@ Theme: *Sustainability*
 
 
 ---
-## [Version 1.3.2](https://github.com/nrmay/TeSS/releases/tag/v1.3.2)
+## [Version 1.3.2](https://github.com/dresa-org-au/TeSS/releases/tag/v1.3.2)
 
 Deployed: *31<sup>st</sup> October, 2021*
 
@@ -120,7 +120,7 @@ Theme: *Post-Launch Updates*
   - [Supporter Orgs: add missing logos](https://github.com/nrmay/TeSS/issues/242)
 
 ---
-## [Version 1.3.1](https://github.com/nrmay/TeSS/releases/tag/v1.3.1)
+## [Version 1.3.1](https://github.com/dresa-org-au/TeSS/releases/tag/v1.3.1)
 
 Deployed: *10<sup>th</sup> October, 2021*
 
@@ -141,7 +141,7 @@ Theme: *Provider Editors*
 
 
 ---
-## [Version 1.3.0](https://github.com/nrmay/TeSS/releases/tag/v1.3.0)
+## [Version 1.3.0](https://github.com/dresa-org-au/TeSS/releases/tag/v1.3.0)
 
 Deployed: *30<sup>th</sup> September, 2021*
 
@@ -165,7 +165,7 @@ Theme: *Trainers Register*
   - [Edit User Profile](https://github.com/nrmay/TeSS/issues/222)
 
 ---
-## [Version 1.2.3](https://github.com/nrmay/TeSS/releases/tag/v1.2.3)
+## [Version 1.2.3](https://github.com/dresa-org-au/TeSS/releases/tag/v1.2.3)
 
 Deployed: *17<sup>th</sup> September, 2021*
 
@@ -195,7 +195,7 @@ Theme: *Upgrades to Support Scrapers*
   - [Google calendar subscription pop-up: #213](https://github.com/nrmay/TeSS/issues/213)
 
 ---
-## [Version 1.2.2](https://github.com/nrmay/TeSS/releases/tag/v1.2.2)
+## [Version 1.2.2](https://github.com/dresa-org-au/TeSS/releases/tag/v1.2.2)
 
 Deployed: *31<sup>st</sup> August, 2021*
 
@@ -212,7 +212,7 @@ Theme: *Feedback from Content Sprints*
   - [Log In button: #174](https://github.com/nrmay/TeSS/issues/174)
 
 ---
-## [Version 1.2.1](https://github.com/nrmay/TeSS/releases/tag/v1.2.1)
+## [Version 1.2.1](https://github.com/dresa-org-au/TeSS/releases/tag/v1.2.1)
 
 Deployed: *16<sup>th</sup> August, 2021*
 
@@ -238,7 +238,7 @@ Theme: *Mid-Sprint Bug Fixes, etc.*
   - [Setup Backend Services #145](https://github.com/nrmay/TeSS/issues/145)
 
 ---
-## [Version 1.2.0](https://github.com/nrmay/TeSS/releases/tag/v1.2.0)  
+## [Version 1.2.0](https://github.com/dresa-org-au/TeSS/releases/tag/v1.2.0)  
 
 Deployed: *30<sup>th</sup> July, 2021*
 
@@ -270,7 +270,7 @@ Changes implemented in this version (with issue numbers) are as follows:
   - [Add Change Log: #127](https://github.com/nrmay/TeSS/issues/127)
 
 ---
-## [Version 1.1.0](https://github.com/nrmay/TeSS/releases/tag/v1.1.0)  
+## [Version 1.1.0](https://github.com/dresa-org-au/TeSS/releases/tag/v1.1.0)  
 
 Deployed: *6<sup>th</sup> July, 2021*
 
