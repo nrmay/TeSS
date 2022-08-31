@@ -2,7 +2,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.2.8'
+gem 'rails', '~> 5.2.8.1'
 
 gem "bootsnap", ">= 1.1.0", require: false # New Rails 5.2 default gem
 
@@ -134,7 +134,7 @@ gem 'rails-i18n'
 gem 'i18n_data'
 
 # for timezone information
-gem 'tzinfo'
+gem 'tzinfo', '~> 1.2.10'
 gem 'tzinfo-data'
 
 # for currency information
@@ -158,6 +158,9 @@ gem 'sassc', '= 2.1.0'
 
 # psych fix upgrade issues with 4.0.4
 gem 'psych', '< 4'
+
+# rails html sanitizer security update
+gem 'rails-html-sanitizer', '~> 1.4.3'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-clipboard', '~> 1.5.12'
