@@ -32,6 +32,10 @@ module TeSS
     config.i18n.available_locales = [:en, :'en-AU', :'en-EU']
     config.i18n.default_locale = :en
     config.i18n.locale = config.tess['site']['theme'] || config.i18n.default_locale
+
+    # fix for error: Psych::DisallowedClass: Tried to load unspecified class: Symbol
+    config.active_record.use_yaml_unsafe_load = true
+
   end
 
   Config = OpenStruct.new(Rails.configuration.tess)
