@@ -55,7 +55,7 @@ gem 'whenever', '~> 1.0.0'
 
 # These are required for Sidekiq, to look up scientific topics
 gem 'httparty'
-gem 'sidekiq', '~> 6.4.0'
+gem 'sidekiq', '~> 6.5.6'
 gem 'slim'
 
 # Use jquery as the JavaScript library
