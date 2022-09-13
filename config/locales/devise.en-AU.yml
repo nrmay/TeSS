@@ -21,6 +21,22 @@ en-AU:
         subject: "Reset password instructions"
       unlock_instructions:
         subject: "Unlock instructions"
+      invitation_instructions:
+        more_information:
+          html: >
+            <p>If you accept this invitation, you will be asked to set a password, after which you will be logged in.
+            From there we suggest that you:
+            <ol><li>update your user profile (by clicking on your id/email address in the upper right corner</li>
+            <li>register a new provider for your organization</li>
+            <li>start adding events for your provider</li></ol></p>
+            <p>For more information see the following:
+            <ol><li>User Manual: <a href="https://dresa.org.au/DReSA-User-Manual.pdf" target="_blank">DReSA-User-Manual.pdf</a></li>
+            <li>Video Guides: <a href="http://videos.dresa.org.au/" target="_blank">Digital Research Skills Australasia (DReSA) - YouTube</a>
+            (including the <em>Content Providers Guide</em>)</li>
+            </ol></p>
+            <p>Ongoing, please use the <em>Administration</em> option in the drop-down list to log in, via the 
+            <a href="https://dresa.org.au/users/sign_in" target="_blank">Sign in</a> page. 
+            Note: this option does not give any special access, it just allows a user to log in with a <em>local</em> account.</p>
     omniauth_callbacks:
       failure: "Could not authenticate you from %{kind} because \"%{reason}\"."
       success: "Successfully authenticated from %{kind} account."
