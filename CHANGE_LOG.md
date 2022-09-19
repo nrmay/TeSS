@@ -1,5 +1,17 @@
 # Version Change Log
 The sections below refer to the release tags for this repository:
+## [Version 1.4.3](https://github.com/dresa-org-au/TeSS/releases/tag/v1.4.2)
+
+Deployed: *TBA*
+
+- Updates:
+  - [Invite Email: Add Getting Started Information](https://github.com/nrmay/issues/374)
+
+
+- Fixes:
+  - [Security Updates 4](https://github.com/nrmay/TeSS/issues/373)
+
+
 ## [Version 1.4.2](https://github.com/dresa-org-au/TeSS/releases/tag/v1.4.2)
 
 Deployed: *7<sup>th</sup> June, 2022*

@@ -26,20 +26,17 @@ class Package < ApplicationRecord
   if TeSS::Config.solr_enabled
     # :nocov:
     searchable do
+      # full text fields
       text :title
-      string :title
+      text :description
+      text :keywords
+      # sort fields
       string :sort_title do
         title.downcase.gsub(/^(an?|the) /, '')
       end
-      text :description
-      string :user do
-        self.user.username.to_s unless self.user.blank?
-      end
+      # other fields
+      string :title
       string :keywords, :multiple => true
-
-      string :user, :multiple => true do
-        [user.username, user.full_name].reject(&:blank?) if user
-      end
 
       integer :user_id
       boolean :public
@@ -57,7 +54,7 @@ class Package < ApplicationRecord
   end
 
   def self.facet_fields
-    %w( keywords user )
+    %w( keywords )
   end
 
   def self.visible_by(user)
