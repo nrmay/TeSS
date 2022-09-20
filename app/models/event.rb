@@ -21,35 +21,66 @@ class Event < ApplicationRecord
   before_save :geocoding_cache_lookup, if: :address_will_change?
   after_save :enqueue_geocoding_worker, if: :address_changed?
 
+  belongs_to :user
+  has_one :edit_suggestion, as: :suggestible, dependent: :destroy
+  has_one :link_monitor, as: :lcheck, dependent: :destroy
+  has_many :package_events
+  has_many :packages, through: :package_events
+  has_many :event_materials, dependent: :destroy
+  has_many :materials, through: :event_materials
+  has_many :widget_logs, as: :resource
+
+  has_ontology_terms(:scientific_topics, branch: OBO_EDAM.topics)
+  has_ontology_terms(:operations, branch: OBO_EDAM.operations)
+
+  validates :title, :url, :start, :end, :organizer, :description, :host_institutions, :timezone, :contact, :eligibility,
+            presence: true
+  # validates :venue, :city, :country, :postcode, :presence => true, :unless => :online?
+  validates :city, :country, :presence => true, :unless => :online?
+  validates :capacity, numericality: { greater_than_or_equal_to: 1 }, allow_blank: true
+  validates :cost_value, numericality: { greater_than: 0 }, allow_blank: true
+  validates :event_types, controlled_vocabulary: { dictionary: EventTypeDictionary.instance }
+  validates :eligibility, controlled_vocabulary: { dictionary: EligibilityDictionary.instance }
+  validates :latitude, numericality: { greater_than_or_equal_to: -90, less_than_or_equal_to: 90, allow_nil: true }
+  validates :longitude, numericality: { greater_than_or_equal_to: -180, less_than_or_equal_to: 180, allow_nil: true }
+  validate :allowed_url
+  validate :validate_timezone
+
+  clean_array_fields(:keywords, :fields, :event_types, :target_audience,
+                     :eligibility, :host_institutions, :sponsors)
+
   if TeSS::Config.solr_enabled
     # :nocov:
     searchable do
       # full text search fields
-      text :title
-      text :keywords
-      text :url
-      text :organizer
-      text :venue
       text :city
-      text :country
-      text :host_institutions
-      text :timezone
       text :content_provider do
         if !self.content_provider.nil?
           self.content_provider.title
         end
       end
+      text :country
+      text :description
+      text :fields
+      text :host_institutions
+      text :keywords
+      text :learning_objectives
+      text :organizer
+      text :title
+      text :venue
       # sort title
       string :sort_title do
         title.downcase.gsub(/^(an?|the) /, '')
       end
-      # other fields
-      string :title
-      string :organizer
-      string :sponsors, :multiple => true
-      string :venue
+      # other
       string :city
       string :country
+      string :cost_basis
+      string :description
+      string :learning_objectives
+      string :title
+      string :venue
+      string :sponsors, :multiple => true
       string :event_types, :multiple => true do
         EventTypeDictionary.instance.values_for_search(self.event_types)
       end
@@ -76,6 +107,7 @@ class Event < ApplicationRecord
       string :operations, :multiple => true do
         self.operation_names
       end
+      string :host_institutions, multiple: true
       string :target_audience, multiple: true
       boolean :online
       time :last_scraped
@@ -88,49 +120,30 @@ class Event < ApplicationRecord
       boolean :failing do
         failing?
       end
-      string :cost_basis
-=begin TODO: SOLR has a LatLonType to do geospatial searching. Have a look at that
-      location :latitutde
-      location :longitude
-=end
     end
     # :nocov:
   end
 
-  belongs_to :user
-  has_one :edit_suggestion, as: :suggestible, dependent: :destroy
-  has_one :link_monitor, as: :lcheck, dependent: :destroy
-  has_many :package_events
-  has_many :packages, through: :package_events
-  has_many :event_materials, dependent: :destroy
-  has_many :materials, through: :event_materials
-  has_many :widget_logs, as: :resource
+  update_suggestions( :keywords, :target_audience)
 
-  has_ontology_terms(:scientific_topics, branch: OBO_EDAM.topics)
-  has_ontology_terms(:operations, branch: OBO_EDAM.operations)
+  #update_suggestions(:city, :host_institutions, :keywords, :organizer,
+  #                   :target_audience, :venue)
 
-  validates :title, :url, :start, :end, :organizer, :description, :host_institutions, :timezone, :contact, :eligibility,
-            presence: true
-  # validates :venue, :city, :country, :postcode, :presence => true, :unless => :online?
-  validates :city, :country, :presence => true, :unless => :online?
-  validates :capacity, numericality: { greater_than_or_equal_to: 1 }, allow_blank: true
-  validates :cost_value, numericality: { greater_than: 0 }, allow_blank: true
-  validates :event_types, controlled_vocabulary: { dictionary: EventTypeDictionary.instance }
-  validates :eligibility, controlled_vocabulary: { dictionary: EligibilityDictionary.instance }
-  validates :latitude, numericality: { greater_than_or_equal_to: -90, less_than_or_equal_to: 90, allow_nil: true }
-  validates :longitude, numericality: { greater_than_or_equal_to: -180, less_than_or_equal_to: 180, allow_nil: true }
-  #validates :duration, format: { with: /\A[0-9][0-9]:[0-5][0-9]\z/, message: "must be in format HH:MM" }, allow_blank: true
-  validate :allowed_url
-  validate :validate_timezone
-  clean_array_fields(:keywords, :fields, :event_types, :target_audience,
-                     :eligibility, :host_institutions, :sponsors)
-  update_suggestions(:keywords, :target_audience, :host_institutions)
+  def self.facet_fields
+    field_list = %w( city country content_provider cost_basis eligibility end
+                      event_types fields keywords online organizer start
+                      target_audience venue )
+    field_list.append('operations') unless TeSS::Config.feature['disabled'].include? 'operations'
+    field_list.append('scientific_topics') unless TeSS::Config.feature['disabled'].include? 'topics'
+    field_list.append('sponsors') unless TeSS::Config.feature['disabled'].include? 'sponsors'
+    field_list.append('tools') unless TeSS::Config.feature['disabled'].include? 'biotools'
+    field_list.append('node') if TeSS::Config.feature['nodes']
+    return field_list
+  end
 
   # These fields should not been shown to users unless they have sufficient privileges
   SENSITIVE_FIELDS = [:funding, :attendee_count, :applicant_count, :trainer_count, :feedback, :notes]
 
-  # remove county field
-  #ADDRESS_FIELDS = [:venue, :city, :county, :country, :postcode]
   ADDRESS_FIELDS = [:venue, :city, :country, :postcode]
 
   COUNTRY_SYNONYMS = JSON.parse(File.read(File.join(Rails.root, 'config', 'data', 'country_synonyms.json')))
@@ -190,18 +203,6 @@ class Event < ApplicationRecord
       end
     end
     return false
-  end
-
-  def self.facet_fields
-    field_list = %w( content_provider keywords fields online event_types
-                     venue city country organizer target_audience eligibility
-                     user )
-    field_list.append('operations') unless TeSS::Config.feature['disabled'].include? 'operations'
-    field_list.append('scientific_topics') unless TeSS::Config.feature['disabled'].include? 'topics'
-    field_list.append('sponsors') unless TeSS::Config.feature['disabled'].include? 'sponsors'
-    field_list.append('tools') unless TeSS::Config.feature['disabled'].include? 'biotools'
-    field_list.append('node') if TeSS::Config.feature['nodes']
-    return field_list
   end
 
   def to_csv_event

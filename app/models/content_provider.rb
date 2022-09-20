@@ -3,6 +3,7 @@ class ContentProvider < ApplicationRecord
   include PublicActivity::Common
   include LogParameterChanges
   include Searchable
+  include HasSuggestions
   include IdentifiersDotOrg
   include HasFriendlyId
   include CurationQueue
@@ -34,7 +35,6 @@ class ContentProvider < ApplicationRecord
   validates :url, url: true
 
   clean_array_fields(:keywords, :approved_editors)
-  update_suggestions(:keywords)
 
   # The order of these determines which providers have precedence when scraping.
   # Low -> High
@@ -72,6 +72,8 @@ class ContentProvider < ApplicationRecord
     end
     # :nocov:
   end
+
+  update_suggestions(:keywords)
 
   def self.facet_fields
     %w( keywords )

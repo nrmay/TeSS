@@ -6,13 +6,12 @@ class Trainer < Profile
   after_update_commit :reindex
   after_destroy_commit :reindex
 
-  update_suggestions(:activity, :expertise_academic, :expertise_technical,
-                     :interest)
 
   extend FriendlyId
   friendly_id :full_name, use: :slugged
 
   include Searchable
+  include HasSuggestions
 
   if TeSS::Config.solr_enabled
     # :nocov:
@@ -35,6 +34,9 @@ class Trainer < Profile
     end
     # :nocov:
   end
+
+  update_suggestions(:activity, :expertise_academic, :expertise_technical,
+                     :interest)
 
   def self.facet_fields
     field_list = %w( location experience expertise_academic expertise_technical

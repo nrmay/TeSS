@@ -15,28 +15,58 @@ class Material < ApplicationRecord
   include IdentifiersDotOrg
   include HasFriendlyId
 
+  # has_one :owner, foreign_key: "id", class_name: "User"
+  belongs_to :user
+  has_one :link_monitor, as: :lcheck, dependent: :destroy
+  has_many :package_materials
+  has_many :packages, through: :package_materials
+  has_many :event_materials, dependent: :destroy
+  has_many :events, through: :event_materials
+
+  has_ontology_terms(:scientific_topics, branch: OBO_EDAM.topics)
+  has_ontology_terms(:operations, branch: OBO_EDAM.operations)
+
+  # Remove trailing and squeezes (:squish option) white spaces inside the string (before_validation):
+  # e.g. "James     Bond  " => "James Bond"
+  auto_strip_attributes :title, :description, :url, :squish => false
+
+  validates :title, :description, :keywords, :url, :licence, :status, :contact, presence: true
+
+  validates :url, url: true
+
+  validates :licence, exclusion: { in: ['notspecified'], message: 'must be specified' }
+
+  validates :other_types, presence: true, if: Proc.new { |m| m.resource_type.include?('other') }
+
+  validates :difficulty_level, controlled_vocabulary: { dictionary: DifficultyDictionary.instance }
+
+  clean_array_fields(:keywords, :fields, :contributors, :authors,
+                     :target_audience, :resource_type, :subsets)
+
   if TeSS::Config.solr_enabled
     # :nocov:
     searchable do
       # full text search fields
-      text :title
-      text :description
-      text :contact
-      text :doi
       text :authors
-      text :contributors
-      text :target_audience
-      text :keywords
-      text :resource_type
       text :content_provider do
         self.content_provider.try(:title)
       end
+      text :contributors
+      text :description
+      text :fields
+      text :keywords
+      text :learning_objectives
+      text :resource_type
+      text :target_audience
+      text :title
       # sort title
       string :sort_title do
         title.downcase.gsub(/^(an?|the) /, '')
       end
       # other fields
       string :title
+      string :licence
+      string :status
       string :authors, :multiple => true
       string :scientific_topics, :multiple => true do
         self.scientific_topic_names
@@ -72,51 +102,23 @@ class Material < ApplicationRecord
     # :nocov:
   end
 
-  # has_one :owner, foreign_key: "id", class_name: "User"
-  belongs_to :user
-  has_one :link_monitor, as: :lcheck, dependent: :destroy
-  has_many :package_materials
-  has_many :packages, through: :package_materials
-  has_many :event_materials, dependent: :destroy
-  has_many :events, through: :event_materials
-
-  has_ontology_terms(:scientific_topics, branch: OBO_EDAM.topics)
-  has_ontology_terms(:operations, branch: OBO_EDAM.operations)
-
-  # Remove trailing and squeezes (:squish option) white spaces inside the string (before_validation):
-  # e.g. "James     Bond  " => "James Bond"
-  auto_strip_attributes :title, :description, :url, :squish => false
-
-  validates :title, :description, :keywords, :url, :licence, :status, :contact, presence: true
-
-  validates :url, url: true
-
-  validates :licence, exclusion: { in: ['notspecified'], message: 'must be specified' }
-
-  validates :other_types, presence: true, if: Proc.new { |m| m.resource_type.include?('other') }
-
-  validates :difficulty_level, controlled_vocabulary: { dictionary: DifficultyDictionary.instance }
-
-  clean_array_fields(:keywords, :fields, :contributors, :authors,
-                     :target_audience, :resource_type, :subsets)
-
-  update_suggestions(:keywords, :contributors, :authors, :target_audience,
-                     :resource_type)
-
-  def description= desc
-    super(Rails::Html::FullSanitizer.new.sanitize(desc))
-  end
+  update_suggestions(:authors, :content_provider, :contributors,
+                     :keywords, :resource_type )
 
   def self.facet_fields
-    field_list = %w( content_provider keywords fields licence target_audience
-                     authors contributors resource_type related_resources
-                     user )
+    field_list = %w( authors content_provider contributors difficulty_level
+                     fields keywords licence related_resources resource_type
+                     status target_audience user )
     field_list.append('operations') unless TeSS::Config.feature['disabled'].include? 'operations'
     field_list.append('scientific_topics') unless TeSS::Config.feature['disabled'].include? 'topics'
     field_list.append('standard_database_or_policy') unless TeSS::Config.feature['disabled'].include? 'fairshare'
     field_list.append('tools') unless TeSS::Config.feature['disabled'].include? 'biotools'
     field_list.append('node') if TeSS::Config.feature['nodes']
     return field_list
+  end
+
+  def description= desc
+    super(Rails::Html::FullSanitizer.new.sanitize(desc))
   end
 
   def self.check_exists(material_params)
