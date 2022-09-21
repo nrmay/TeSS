@@ -78,6 +78,7 @@ class Event < ApplicationRecord
       string :cost_basis
       string :description
       string :learning_objectives
+      string :organizer
       string :title
       string :venue
       string :sponsors, :multiple => true
@@ -124,7 +125,7 @@ class Event < ApplicationRecord
     # :nocov:
   end
 
-  update_suggestions( :keywords, :target_audience)
+  update_suggestions( :host_institutions, :keywords, :target_audience)
 
   #update_suggestions(:city, :host_institutions, :keywords, :organizer,
   #                   :target_audience, :venue)

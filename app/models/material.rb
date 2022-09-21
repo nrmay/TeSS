@@ -102,8 +102,7 @@ class Material < ApplicationRecord
     # :nocov:
   end
 
-  update_suggestions(:authors, :content_provider, :contributors,
-                     :keywords, :resource_type )
+  update_suggestions(:authors, :contributors, :keywords )
 
   def self.facet_fields
     field_list = %w( authors content_provider contributors difficulty_level

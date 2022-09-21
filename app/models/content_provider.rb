@@ -3,7 +3,6 @@ class ContentProvider < ApplicationRecord
   include PublicActivity::Common
   include LogParameterChanges
   include Searchable
-  include HasSuggestions
   include IdentifiersDotOrg
   include HasFriendlyId
   include CurationQueue

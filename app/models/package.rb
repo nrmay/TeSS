@@ -2,7 +2,6 @@ class Package < ApplicationRecord
   include PublicActivity::Model
   include LogParameterChanges
   include Searchable
-  include HasSuggestions
   include HasFriendlyId
 
   has_many :package_materials
