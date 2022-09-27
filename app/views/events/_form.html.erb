@@ -99,11 +99,13 @@
   <%= f.input :contact, input_html: { rows: '5', title: t('events.hints.contact') }, field_lock: true %>
 
   <!-- Field: Host Institutions -->
-  <%= f.multi_input :host_institutions, required: true, errors: @event.errors[:host_institutions],
+  <%= f.multi_input :host_institutions, required: true,
+                    errors: @event.errors[:host_institutions],
                     title: t('events.hints.hosts') %>
 
   <!-- Field: Keywords -->
-  <%= f.multi_input :keywords, errors: @event.errors[:keywords],
+  <%= f.multi_input :keywords,
+                    errors: @event.errors[:keywords],
                     title: t('events.hints.keywords') %>
 
   <!-- Field: Fields -->
@@ -116,7 +118,9 @@
                        title: t('events.hints.fields') } %>
 
   <!-- Field: Target Audience -->
-  <%= f.multi_input :target_audience, errors: @event.errors[:target_audience], title: t('events.hints.targets') %>
+  <%= f.multi_input :target_audience,
+                    errors: @event.errors[:target_audience],
+                    title: t('events.hints.targets') %>
 
   <!-- Field: Topics -->
   <% if !TeSS::Config.feature['disabled'].include? 'topics' %>

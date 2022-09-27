@@ -59,7 +59,6 @@ class ContentProvider < ApplicationRecord
           self.node.name
         end
       end
-      string :content_provider_type
       integer :count do
         if self.events.count > self.materials.count
           self.events.count
@@ -73,11 +72,10 @@ class ContentProvider < ApplicationRecord
     # :nocov:
   end
 
-  # TODO: Add validations for these:
-  # title:text url:text image_url:text description:text
+  update_suggestions(:keywords)
 
   def self.facet_fields
-    %w( keywords node content_provider_type)
+    %w( keywords )
   end
 
   def node_name= name

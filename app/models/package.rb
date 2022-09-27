@@ -19,27 +19,23 @@ class Package < ApplicationRecord
   validates :title, presence: true
 
   clean_array_fields(:keywords)
-  update_suggestions(:keywords)
 
   has_image(placeholder: TeSS::Config.placeholder['package'])
 
   if TeSS::Config.solr_enabled
     # :nocov:
     searchable do
+      # full text fields
       text :title
-      string :title
+      text :description
+      text :keywords
+      # sort fields
       string :sort_title do
         title.downcase.gsub(/^(an?|the) /, '')
       end
-      text :description
-      string :user do
-        self.user.username.to_s unless self.user.blank?
-      end
+      # other fields
+      string :title
       string :keywords, :multiple => true
-
-      string :user, :multiple => true do
-        [user.username, user.full_name].reject(&:blank?) if user
-      end
 
       integer :user_id
       boolean :public
@@ -49,15 +45,17 @@ class Package < ApplicationRecord
     # :nocov:
   end
 
+  update_suggestions(:keywords)
+
+  def self.facet_fields
+    %w( keywords )
+  end
+
   #Overwrites a packages materials and events.
   #[] or nil will delete
   def update_resources_by_id(materials=[], events=[])
     self.update_attribute('materials', materials.uniq.collect{|materials| Material.find_by_id(materials)}.compact) if materials
     self.update_attribute('events', events.uniq.collect{|events| Event.find_by_id(events)}.compact) if events
-  end
-
-  def self.facet_fields
-    %w( keywords user )
   end
 
   def self.visible_by(user)
