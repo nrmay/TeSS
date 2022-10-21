@@ -148,7 +148,7 @@ gem 'rest-client'
 
 # for converting html to markdown
 gem 'reverse_markdown'
-gem 'nokogiri', '~> 1.13.6'
+gem 'nokogiri', '~> 1.13.9'
 
 # eventbrite api
 gem 'eventbrite_sdk'

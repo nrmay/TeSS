@@ -317,7 +317,7 @@ GEM
       timeout
     netrc (0.11.0)
     nio4r (2.5.8)
-    nokogiri (1.13.8-x86_64-linux)
+    nokogiri (1.13.9-x86_64-linux)
       racc (~> 1.4)
     nokogumbo (2.0.5)
       nokogiri (~> 1.8, >= 1.8.4)
@@ -693,7 +693,7 @@ DEPENDENCIES
   lunchy
   minitest (= 5.10.3)
   money-rails
-  nokogiri (~> 1.13.6)
+  nokogiri (~> 1.13.9)
   omniauth-rails_csrf_protection
   omniauth_openid_connect
   pg
