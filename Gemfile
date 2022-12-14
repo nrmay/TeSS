@@ -160,7 +160,7 @@ gem 'sassc', '= 2.1.0'
 gem 'psych', '< 4'
 
 # rails html sanitizer security update
-gem 'rails-html-sanitizer', '~> 1.4.3'
+gem 'rails-html-sanitizer', '~> 1.4.4'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-clipboard', '~> 1.5.12'
