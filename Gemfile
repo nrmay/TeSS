@@ -109,7 +109,7 @@ gem 'icalendar', '~> 2.4.1'
 
 gem 'bootstrap-datepicker-rails', '~> 1.6.4.1'
 
-gem 'rack', '~> 2.2.3.1'
+gem 'rack', '~> 2.2.6.2'
 
 gem 'rack-cors', require: 'rack/cors'
 
