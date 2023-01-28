@@ -164,7 +164,7 @@ GEM
     friendly_id (5.2.5)
       activerecord (>= 4.0.0)
     geocoder (1.8.0)
-    globalid (1.0.0)
+    globalid (1.0.1)
       activesupport (>= 5.0)
     gravtastic (3.2.6)
     haml (5.0.4)
@@ -181,8 +181,8 @@ GEM
     http-accept (1.7.0)
     http-cookie (1.0.5)
       domain_name (~> 0.5)
-    httparty (0.20.0)
-      mime-types (~> 3.0)
+    httparty (0.21.0)
+      mini_mime (>= 1.0.0)
       multi_xml (>= 0.5.2)
     httpclient (2.8.3)
     i18n (1.12.0)
@@ -277,7 +277,7 @@ GEM
     listen (3.7.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
-    loofah (2.18.0)
+    loofah (2.19.1)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     lunchy (0.10.4)
@@ -317,7 +317,7 @@ GEM
       timeout
     netrc (0.11.0)
     nio4r (2.5.8)
-    nokogiri (1.13.8-x86_64-linux)
+    nokogiri (1.13.10-x86_64-linux)
       racc (~> 1.4)
     nokogumbo (2.0.5)
       nokogiri (~> 1.8, >= 1.8.4)
@@ -358,8 +358,8 @@ GEM
     public_suffix (5.0.0)
     pundit (1.1.0)
       activesupport (>= 3.0.0)
-    racc (1.6.0)
-    rack (2.2.3.1)
+    racc (1.6.2)
+    rack (2.2.6.2)
     rack-cors (1.1.1)
       rack (>= 2.0.0)
     rack-oauth2 (1.21.2)
@@ -395,8 +395,8 @@ GEM
     rails-dom-testing (2.0.3)
       activesupport (>= 4.2.0)
       nokogiri (>= 1.6)
-    rails-html-sanitizer (1.4.3)
-      loofah (~> 2.3)
+    rails-html-sanitizer (1.4.4)
+      loofah (~> 2.19, >= 2.19.1)
     rails-i18n (5.1.3)
       i18n (>= 0.7, < 2)
       railties (>= 5.0, < 6)
@@ -674,10 +674,11 @@ DEPENDENCIES
   font-awesome-sass (~> 4.7.0)
   friendly_id (~> 5.2.4)
   geocoder
+  globalid (~> 1.0.1)
   gravtastic (~> 3.2.6)
   haml (~> 5.0.4)
   handlebars_assets
-  httparty
+  httparty (~> 0.21.0)
   i18n_data
   icalendar (~> 2.4.1)
   iso_country_codes
@@ -690,10 +691,11 @@ DEPENDENCIES
   kt-paperclip (~> 6.4, >= 6.4.1)
   linkeddata
   listen
+  loofah (~> 2.19.1)
   lunchy
   minitest (= 5.10.3)
   money-rails
-  nokogiri (~> 1.13.6)
+  nokogiri (~> 1.13.10)
   omniauth-rails_csrf_protection
   omniauth_openid_connect
   pg
@@ -702,7 +704,7 @@ DEPENDENCIES
   psych (< 4)
   public_activity (~> 1.6.4)!
   pundit (~> 1.1.0)
-  rack (~> 2.2.3.1)
+  rack (~> 2.2.6.2)
   rack-cors
   rails (~> 5.2.8.1)
   rails-assets-clipboard (~> 1.5.12)!
@@ -711,7 +713,7 @@ DEPENDENCIES
   rails-assets-markdown-it (~> 7.0.1)!
   rails-assets-moment (~> 2.15.0)!
   rails-controller-testing
-  rails-html-sanitizer (~> 1.4.3)
+  rails-html-sanitizer (~> 1.4.4)
   rails-i18n
   rails_admin
   rdoc (>= 6.3.1)

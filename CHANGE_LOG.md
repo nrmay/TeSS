@@ -6,10 +6,11 @@ Deployed: *TBA*
 
 - Updates:
   - [Invite Email: Add Getting Started Information](https://github.com/nrmay/issues/374)
-
+  - [Optimize Search Fields](https://github.com/nrmay/TeSS/issues/321)
 
 - Fixes:
   - [Security Updates 4](https://github.com/nrmay/TeSS/issues/373)
+  - [Security Updates 5](https://github.com/nrmay/TeSS/issues/385)
 
 
 ## [Version 1.4.2](https://github.com/dresa-org-au/TeSS/releases/tag/v1.4.2)

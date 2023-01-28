@@ -54,7 +54,7 @@ gem 'dynamic_sitemaps', github: 'lassebunk/dynamic_sitemaps', branch: 'master'
 gem 'whenever', '~> 1.0.0'
 
 # These are required for Sidekiq, to look up scientific topics
-gem 'httparty'
+gem 'httparty', '~> 0.21.0'
 gem 'sidekiq', '~> 6.5.6'
 gem 'slim'
 
@@ -109,7 +109,7 @@ gem 'icalendar', '~> 2.4.1'
 
 gem 'bootstrap-datepicker-rails', '~> 1.6.4.1'
 
-gem 'rack', '~> 2.2.3.1'
+gem 'rack', '~> 2.2.6.2'
 
 gem 'rack-cors', require: 'rack/cors'
 
@@ -148,7 +148,7 @@ gem 'rest-client'
 
 # for converting html to markdown
 gem 'reverse_markdown'
-gem 'nokogiri', '~> 1.13.6'
+gem 'nokogiri', '~> 1.13.10'
 
 # eventbrite api
 gem 'eventbrite_sdk'
@@ -160,7 +160,14 @@ gem 'sassc', '= 2.1.0'
 gem 'psych', '< 4'
 
 # rails html sanitizer security update
-gem 'rails-html-sanitizer', '~> 1.4.3'
+gem 'rails-html-sanitizer', '~> 1.4.4'
+gem 'loofah', '~> 2.19.1'
+
+# fix net-protocol warnings by specifically importing net-http
+gem 'net-http'
+
+# security update 5
+gem 'globalid', '~> 1.0.1'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-clipboard', '~> 1.5.12'
