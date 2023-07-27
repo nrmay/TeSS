@@ -1,0 +1,162 @@
+#cy {
+  height: 650px;
+  width: 100%;
+}
+
+.resourceCard {
+  padding: 10px;
+  background: rgba(51, 122, 183, 0.08);
+  margin: 2px;
+}
+
+.embedded-container {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+
+  .workflow-diagram-wrapper,
+  .workflow-diagram-container,
+  .workflow-diagram-content {
+    height: 100%;
+  }
+
+  #cy {
+    height: 100% !important;
+    max-height: none !important;
+  }
+}
+
+.workflow-toolbar-wrapper {
+  background-color: #ddd;
+  padding: 5px;
+  border-bottom: 1px solid #ccc;
+}
+
+#workflow-toolbar {
+  text-align: right;
+  margin-bottom: 5px;
+}
+
+#workflow-status-bar {
+  line-height: 34px;
+  //margin-bottom: 10px;
+  padding: 5px 10px;
+  background: #efefef;
+  height: 46px;
+}
+
+#workflow-status-message {
+  float: left;
+  background-color: $alert-info-bg;
+  padding: 6px;
+  border: 1px solid $alert-info-border;
+  border-radius: 4px;
+  color: $alert-info-text;
+}
+
+#workflow-save-warning {
+  float: left;
+  background-color: $alert-warning-bg;
+  padding: 6px;
+  border: 1px solid $alert-warning-border;
+  border-radius: 4px;
+  color: $alert-warning-text;
+  margin-right: 10px;
+}
+
+/* Hide the border from the predefined colour selector */
+.simplecolorpicker span.color:hover,
+.simplecolorpicker span.color[data-selected],
+.simplecolorpicker span.color[data-selected]:hover {
+  border-color: transparent !important;
+}
+
+#main-container.workflows-container {
+  padding: 0 10px 10px 10px;
+  max-width: none;
+}
+
+.workflow-diagram-wrapper {
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+}
+
+.workflow-diagram-container {
+  display: flex;
+}
+
+#workflow-diagram-sidebar {
+  flex-shrink: 0;
+  width: 300px;
+  border-left: 1px solid #ccc;
+  background-color: #fff;
+  z-index: 10;
+
+  img {
+    max-width: 100%;
+  }
+}
+
+#workflow-diagram-content {
+  flex-grow: 1;
+}
+
+#workflow-diagram-sidebar-desc {
+  padding: 10px;
+}
+
+.split {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.gutter {
+  background-color: #eee;
+  border-left: 1px solid #ccc;
+  background-repeat: no-repeat;
+  background-position: 50%;
+  z-index: 11;
+}
+
+.gutter.gutter-horizontal {
+  background-image: image-url('grips/vertical.png');
+  cursor: ew-resize;
+}
+
+.gutter.gutter-vertical {
+  background-image: image-url('grips/horizontal.png');
+  cursor: ns-resize;
+}
+
+.associated-resource {
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 10px;
+}
+
+.delete-associated-resource {
+  @include delete-cross;
+}
+
+#node-modal,
+#edge-modal {
+  z-index: 5000; /* Has to be less than 9999 or autocompleter suggestions are hidden! */
+}
+
+#workflow-status-selected-node {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.embed-floating-link {
+  position: absolute;
+  bottom: 5px;
+  left: 5px;
+  z-index: 20000;
+}

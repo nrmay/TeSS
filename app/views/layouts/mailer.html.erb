@@ -1,0 +1,17 @@
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body style="font-family: sans-serif; width: 100%; -webkit-font-smoothing: antialiased; background-color: #fff">
+
+<%= yield %>
+
+<br/><br/>
+<%= link_to(root_url) do %>
+    <%= image_tag(TeSS::Config.site['logo_email'], alt: TeSS::Config.site['title_short'], 
+         title: "Visit #{TeSS::Config.site['title_short']}",
+         style: 'height: 100px;', target: '_blank' ) %>
+<% end %>
+
+</body>
+</html>

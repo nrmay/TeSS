@@ -1,0 +1,49 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+good:
+  name: Test Node
+  member_status: MyString
+  country_code: SE
+  home_page: http://example.com
+#  institutions:
+  twitter: MyString
+  carousel_images: 
+  user: regular_user
+
+westeros:
+  name: Westeros
+  member_status: MyString
+  country_code: HR
+  home_page: http://example.com
+  twitter: westeros
+  user: regular_user
+
+#
+#no_name:
+#  name:
+#  member_status: MyString
+#  country_code: MyString
+#  home_page: http://example.com
+#  institutions:
+#  trc: MyString
+#  trc_email: MyString
+#  trc:
+#  staff:
+#  twitter: MyString
+#  carousel_images:
+#  user: regular_user
+#
+#no_url:
+#  name: MyString
+#  member_status: MyString
+#  country_code: MyString
+#  home_page: Wrong!
+#  institutions:
+#  trc: MyString
+#  trc_email: MyString
+#  trc:
+#  staff:
+#  twitter: MyString
+#  carousel_images:
+#  user: regular_user
+

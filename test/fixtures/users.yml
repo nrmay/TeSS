@@ -1,0 +1,140 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined.  If you add columns to the
+# model remove the '{}' from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+regular_user:
+  username: 'Bob'
+  email: 'bob@notarealdomain.org'
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'hello') %>
+  confirmed_at: <%= Time.zone.now %>
+  role: user
+  authentication_token: <%= Devise.friendly_token %>
+
+another_regular_user:
+  username: 'Dale'
+  email: 'dale@notarealdomain.org'
+  encrypted_password: 'dales_encrypted_password'
+  role: user
+  confirmed_at: <%= Time.zone.now %>
+
+admin:
+  username: 'Adam Min'
+  email: 'adam@notarealdomain.org'
+  encrypted_password: 'admin_encrypted_password'
+  confirmed_at: <%= Time.zone.now %>
+  role: admin
+
+scraper_user:
+  username: 'API'
+  email: 'api_email@gmail.com'
+  authentication_token: 'hjfdslhjfdkslfjd'
+  encrypted_password: 'admin_encrypted_password'
+  confirmed_at: <%= Time.zone.now %>
+  role: scraper_user
+
+collaborative_user:
+  username: 'Francesca'
+  email: 'fran@notarealdomain.org'
+  encrypted_password: 'frans_encrypted_password'
+  role: user
+  confirmed_at: <%= Time.zone.now %>
+
+non_collaborative_user:
+  username: 'Helen'
+  email: 'helen@notarealdomain.org'
+  encrypted_password: 'helen_encrypted_password'
+  role: user
+  confirmed_at: <%= Time.zone.now %>
+
+curator:
+  username: 'qrator'
+  email: 'q@example.com'
+  encrypted_password: 'curator_encrypted_password'
+  confirmed_at: <%= Time.zone.now %>
+  role: curator
+
+existing_aaf_user:
+  username: 'existing_aaf_user'
+  email: 'eau@example.com'
+  confirmed_at: <%= Time.zone.now %>
+  provider: oidc
+  uid: 1234
+
+email_address_user:
+  username: 'coolguy@email.domain'
+  email: 'coolguy@email.domain'
+  encrypted_password: 'elsa4ever'
+  confirmed_at: <%= Time.zone.now %>
+  role: user
+  authentication_token: <%= Devise.friendly_token %>
+
+banned_user:
+  username: 'Ban Ned'
+  email: 'banned@notarealdomain.org'
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'hello') %>
+  confirmed_at: <%= Time.zone.now %>
+  role: user
+  authentication_token: <%= Devise.friendly_token %>
+
+
+shadowbanned_user:
+  username: Chad O'Band
+  email: 'sbanned@notarealdomain.org'
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'hello') %>
+  confirmed_at: <%= Time.zone.now %>
+  role: user
+  authentication_token: <%= Devise.friendly_token %>
+
+basic_user:
+  username: basic
+  email: 'basic@notarealdomain.org'
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'hello') %>
+  confirmed_at: <%= Time.zone.now %>
+  role: basic_user
+  authentication_token: <%= Devise.friendly_token %>
+
+unverified_user:
+  username: unverified
+  email: 'unverified@notarealdomain.org'
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'hello') %>
+  confirmed_at: <%= Time.zone.now %>
+  role: unverified_user
+  authentication_token: <%= Devise.friendly_token %>
+
+shadowbanned_unverified_user:
+  username: naughtyspammer
+  email: 'naughtyspammer@notarealdomain.org'
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'hello') %>
+  confirmed_at: <%= Time.zone.now %>
+  role: unverified_user
+  authentication_token: <%= Devise.friendly_token %>
+
+trainer_user:
+  username: 'SteveT'
+  email: 'steve_trainer@notarealdomain.org'
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'trainer') %>
+  confirmed_at: <%= Time.zone.now %>
+  role: user
+  authentication_token: <%= Devise.friendly_token %>
+  provider: oidc
+
+private_user:
+  username: 'StevieN'
+  email: 'stevie_nix@notarealdomain.org'
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'private') %>
+  confirmed_at: <%= Time.zone.now %>
+  role: user
+  authentication_token: <%= Devise.friendly_token %>
+  provider: oidc
+
+existing_tuakiri_user:
+  username: 'HoraceNewman'
+  email: 'horace.newman@some.domain.org'
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'private') %>
+  confirmed_at: <%= Time.zone.now %>
+  role: user
+  authentication_token: <%= Devise.friendly_token %>
+  provider: oidc2
+

@@ -1,0 +1,31 @@
+<%# Sidebar containing filterable facets.
+
+Parameters:
+- resources     - SOLR object containing results and metadata about search as returned from materials#index
+
+Variable that should be available
+- @facet_params  - The facet filters the user has applied
+%>
+<h3 class="nav-heading" id="sidebar-header">
+  <i class="fa fa-filter"></i> Filters
+  <a href="#" class="pull-right" id="sidebar-close">&times;</a>
+</h3>
+
+<ul class="unstyled nav-simple">
+  <% if current_user && (current_user.is_curator? || current_user.is_admin?) && resource_type.method_defined?(:last_scraped) %>
+    <%= render partial: 'search/common/facet_sidebar_curation' %>
+  <% end %>
+  <% if ['Event', 'Material'].include?(resource_type.name) %>
+    <%= render partial: 'search/common/facet_sidebar_max_age' %>
+  <% end %>
+  <% resources.facets.select { |f| f.rows.any? }.each do |facet| %>
+      <% if IGNORED_FILTERS.include?(facet.field_name.to_s)   %>
+      <% elsif facet.field_name == :online %>
+          <%= render partial: 'search/common/facet_sidebar_boolean_filter.html.erb',
+                     locals: { facet: facet, resources: resources } %>
+      <% else %>
+          <%= render partial: 'search/common/facet_sidebar_filter.html.erb',
+                     locals: { facet: facet, resources: resources } %>
+      <% end %>
+  <% end %>
+</ul>

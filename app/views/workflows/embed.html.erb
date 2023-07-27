@@ -1,0 +1,20 @@
+<% content_for :sidebar_title do %>
+    <i class="fa fa-sitemap"></i> <%= @workflow.title %>
+<% end %>
+<% content_for :sidebar_description do %>
+    <% if @workflow.description.blank? %>
+        <p class="muted">No description provided</p>
+    <% else %>
+        <%= render_markdown(@workflow.description) %>
+    <% end %>
+    <%= render partial: 'common/extra_metadata', locals: { resource: @workflow } %>
+<% end %>
+
+<%= render partial: 'workflows/workflow_diagram', locals: { workflow: @workflow } %>
+
+<%= link_to @workflow, class: 'embed-floating-link', target: '_parent' do %>
+  <%= image_tag TeSS::Config.site['logo'],
+                alt: TeSS::Config.site['title'],
+                title: "View this workflow on #{TeSS::Config.site['title_short']}",
+                style: 'height: 50px;' %>
+<% end %>

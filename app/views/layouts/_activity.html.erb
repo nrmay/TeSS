@@ -1,0 +1,6 @@
+<% content = yield %>
+<% unless content.strip.blank? %>
+    <div class="activity">
+      <%= content %>
+    </div>
+<% end %>

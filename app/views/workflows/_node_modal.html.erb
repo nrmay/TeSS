@@ -1,0 +1,90 @@
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="node-modal-title" id="node-modal">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="node-modal-title">New node</h4>
+      </div>
+
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="node-modal-form-title">Title</label>
+          <input type="text" class="form-control" id="node-modal-form-title" placeholder="Title">
+        </div>
+
+        <div class="form-group">
+          <label for="node-modal-form-description">Description</label>
+          <textarea class="form-control" id="node-modal-form-description" rows="5"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Associations</label>
+          <div id="node-modal-associated-resource-list">
+            <%# This is populated via javascript. See workflows.js and templates/associated_resource_form.hbs %>
+          </div>
+          <button data-resource-type="materials" class="btn btn-default node-modal-add-resource-btn"><i class="fa fa-book"></i> Add training material</button>
+          <button data-resource-type="events" class="btn btn-default node-modal-add-resource-btn"><i class="fa fa-calendar"></i> Add event</button>
+          <button data-resource-type="tools" class="btn btn-default node-modal-add-resource-btn"><i class="fa fa-wrench"></i> Add tool</button>
+          <button data-resource-type="policies" class="btn btn-default node-modal-add-resource-btn"><i class="fa fa-file-text-o"></i> Add policy</button>
+        </div>
+
+        <div class="form-group">
+          <label>Terms</label>
+          <ul id="node-modal-ontology-terms-list">
+            <%# This is populated via javascript. See workflows.js and templates/associated_resource_form.hbs %>
+          </ul>
+          <input id="term-autocomplete" data-attribute="title" type="text" class="form-control" autocomplete="off" placeholder="Type to search for a term..."/>
+        </div>
+
+        <div class="form-group">
+          <label for="node-modal-form-colour">Colour</label>
+          <p style="margin: 0px; padding: 5px;">
+            Click inside the box below to select colour using colour picker:
+          </p>
+          <input type="text" class="form-control jscolor {hash:true, zIndex: 100000}" value="#F0721E" id="node-modal-form-colour">
+          <p style="background-color: #E7E7E7; margin-top: 5px; padding: 5px;">
+            Or select from pre-defined colours:
+            <%= render 'workflows/partials/simple_colour_picker' %>
+          </p>
+        </div>
+
+        <input type="hidden" id="node-modal-form-id">
+        <input type="hidden" id="node-modal-form-parent-id">
+        <input type="hidden" id="node-modal-form-x">
+        <input type="hidden" id="node-modal-form-y">
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" id="node-modal-form-close">Close</button>
+        <button type="button" class="btn btn-primary" id="node-modal-form-confirm">Done</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $('#term-autocomplete').autocomplete({
+    serviceUrl: '<%= edam_operations_path -%>',
+    dataType: 'json',
+    deferRequestBy: 150,
+    paramName: 'filter',
+    transformResult: function(response) {
+      return {
+        suggestions: $.map(response, function(item) {
+          return { value: item.preferred_label, data: item };
+        })
+      };
+    },
+    onSelect: function (suggestion) {
+      $(this).val('');
+      Workflows.ontologyTerms.add(suggestion);
+    },
+    onSearchStart: function () {
+      $(this).addClass('loading');
+    },
+    onSearchComplete: function () {
+      $(this).removeClass('loading');
+    }
+  });
+</script>

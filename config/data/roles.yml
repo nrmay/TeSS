@@ -1,0 +1,16 @@
+registered_user:
+  title: Registered user
+admin:
+  title: Administrator
+node_curator:
+  title: Node curator
+curator:
+  title: Curator
+scraper_user:
+  title: Automated scraper
+default_user:
+  title: Default user
+basic_user: # Cannot create content
+  title: Basic user
+unverified_user: # Content requires approval before being visible
+  title: New user

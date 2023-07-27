@@ -1,0 +1,1124 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ */
+// "bootstrap-sprockets" must be imported before "bootstrap" and "bootstrap/variables"
+@import "jquery-ui";
+@import "bootstrap-sprockets";
+@import "mixins/variables";
+// *** Colour changes can be done here! ***
+@import "bootstrap";
+@import "font-awesome-sprockets";
+@import "font-awesome";
+@import "mixins/mixins";
+@import "*";
+@import "cytoscape-panzoom";
+@import "jquery.simplecolorpicker";
+@import "eonasdan-bootstrap-datetimepicker";
+
+// define font faces
+@font-face {
+  font-family: 'Montserrat';
+  src: 'Montserrat-Regular.ttf';
+}
+
+// Sticky but not fixed footer
+// http://cbracco.me/css-sticky-footer-effect/
+html {
+  height: 100%;
+  position: relative;
+}
+
+body {
+  min-width: 320px;
+  position: relative;
+  margin: 0;
+  padding-bottom: 215px;
+  min-height: 100%;
+}
+
+.footer {
+  border-top: solid 3px $dresa-green;
+  margin-top: 0;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: $dresa-blue; // #ddd;
+  color: white;
+
+  a {
+    color: white;
+    background-color: transparent;
+    text-decoration: none;
+  }
+
+  h5, h6 {
+    font-weight: bold;
+  }
+
+  .container {
+    padding: 0;
+  }
+
+  .footer-logo {
+    img {
+      margin-left: 12px;
+      margin-bottom: 12px;
+      height: 30px;
+    }
+  }
+
+  .footer-logo-lg {
+    img {
+      height: 106px;
+    }
+  }
+
+  .eu-notice {
+    padding-top: 10px;
+    overflow: auto;
+
+    img {
+      float: left;
+      margin: 0 8px;
+      height: 39px;
+    }
+  }
+}
+
+.ack-country {
+  border-top: 2px solid $dresa-green;
+  margin-top: 0;
+  padding-top: 0.5em;
+  text-align: center;
+}
+
+.supported-by {
+  margin-bottom: 0;
+  text-align: center;
+  vertical-align: middle;
+  font-size: x-small;
+  line-height: 1.2;
+}
+
+.funder-text {
+  padding-top: 1em;
+  p {
+    font-size: xx-small;
+    vertical-align: bottom;
+    line-height: 1.25;
+  }
+}
+
+.funder-logo {
+  img {
+    padding: 1em 1em 0 0;
+    height: 60px;
+  }
+}
+
+.partner-logo {
+  img {
+    margin: 0 0 12px 0;
+    border-right: 1px solid $dresa-green;
+    padding: 0 12px;
+    height: 45px;
+  }
+}
+
+.partner-logos .partner-logo:last-child {
+  img {
+    border-right: none;
+  }
+}
+
+div.wrapper {
+  *zoom: 1;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -webkit-box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.05);
+  margin-bottom: 20px;
+  display: flex;
+
+  &.collapsing-wrapper {
+    // Divs that were arranged left -> right will collapse to bottom -> top
+    @media (max-width: $screen-md-min) {
+      flex-direction: column-reverse;
+    }
+  }
+
+  &.collapsing-wrapper-tb {
+    // Opposite to above
+    @media (max-width: $screen-md-min) {
+      flex-direction: column;
+    }
+  }
+}
+
+#main-container,
+#header-container {
+  max-width: 1200px;
+}
+
+#content {
+  padding: 15px;
+  flex-grow: 1;
+}
+
+#sidebar {
+  width: 280px;
+  border-right: 1px solid #ccc;
+  padding: 0;
+  flex-shrink: 0;
+
+  &.collapsing-sidebar {
+    @media (max-width: $screen-md-min) {
+      width: 100%;
+      border-right: none;
+    }
+  }
+
+  &.popout-sidebar {
+    @media (max-width: $screen-md-min) {
+      position: absolute;
+      z-index: 10;
+      background: white;
+      border-bottom: 1px solid #ccc;
+      box-shadow: 2px 2px 3px 0 #999;
+      display: none;
+
+      &.open {
+        display: block;
+      }
+    }
+  }
+
+  // Sidebar facet styles
+  table tr td.h4 {
+    padding-left: 10px;
+  }
+
+  table tr td {
+    padding-left: 20px;
+  }
+
+  table tr td a {
+    color: #000;
+    padding: 3px;
+    text-decoration: none;
+  }
+
+  table tr td a:hover {
+    background-color: #b0c3c9;
+    color: #fff;
+    padding: 3px;
+    text-decoration: none;
+  }
+}
+
+.facet-select {
+  border-radius: 0;
+  border-width: 1px 0;
+}
+
+#sidebar-toggle {
+  display: none;
+
+  @media (max-width: $screen-md-min) {
+    display: inline;
+  }
+}
+
+#sidebar-header {
+  display: block;
+
+  @media (max-width: $screen-md-min) {
+    display: block;
+  }
+}
+
+.workflow_image {
+  width: 100%;
+}
+
+.profile {
+  margin-bottom: 30px;
+}
+
+// Bootstrap's breadcrumbs
+.breadcrumbs {
+  margin-top: 5px;
+}
+
+.breadcrumb {
+  margin-bottom: 10px;
+}
+
+// Style for empty results etc.
+.empty {
+  color: #aaa;
+  font-style: italic;
+}
+
+// Override Bootstrap's alert
+.alert {
+  margin-bottom: 0;
+  margin-top: 5px;
+}
+
+// Bootstrap's row
+.row {
+  margin: 10px 0 10px 0;
+  //padding: 0px 0px 10px 0px;  // Do not add padding to the row - messes up sidebar etc.
+}
+
+// From https://css-tricks.com/snippets/css/prevent-long-urls-from-breaking-out-of-container/
+.dont-break-out {
+  /* These are technically the same, but use both */
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  -ms-word-break: break-all;
+
+  /* This is the dangerous one in WebKit, as it breaks things wherever */
+  word-break: break-all;
+
+  /* Instead use this non-standard one: */
+  // word-break: break-word;
+
+  /* Adds a hyphen where the word breaks, if supported (No Blink) */
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+}
+
+.wide .media-item {
+  width: 186px;
+}
+
+.listing_image {
+  max-width: 150px;
+  max-height: 65px;
+}
+
+// Modified from CKAN - for sidebar facets
+ul.unstyled {
+  margin-left: 0;
+  list-style: outside none none;
+  padding-left: 0;
+}
+
+.nav-simple {
+  margin: 0;
+  list-style: outside none none;
+  padding-bottom: 0;
+}
+
+.nav-simple > li {
+  padding: 0;
+  border-bottom: 1px dotted #ddd;
+}
+
+.nav-simple > li:last-of-type {
+  border-bottom: 0 none;
+}
+
+.nav-item {
+  padding: 7px 20px;
+  width: 100%;
+}
+
+.nav-item > a {
+  //padding-left: 15px;
+  //padding-right: 15px;
+  position: relative;
+  display: block;
+  color: #333;
+  //font-size: 14px;
+  //line-height: 20px;
+  //margin: -7px -25px;
+  padding: 7px 20px;
+  text-decoration: none;
+}
+
+.nav-item > a:hover {
+  background-color: #e6e6e6;
+  border-color: #adadad;
+}
+
+.nav-item.active > a {
+  position: relative;
+  color: #fff;
+  background-color: $grey-blue;
+}
+
+.nav-item.active > a:hover {
+  color: #fff;
+  background-color: $blue;
+}
+
+// End CKAN's sidebar facets
+
+// Facet's title
+.nav-heading {
+  padding: 10px;
+  background-color: #f6f6f6;
+  margin: 0;
+}
+
+.nav-heading-darker {
+  background-color: #ddd;
+  padding: 10px;
+  margin: 0 0 5px 0;
+}
+
+.filter-button {
+  color: #fff;
+  background-color: $grey-blue;
+
+  &:hover {
+    background-color: $blue !important;
+  }
+}
+
+.facet-count {
+  float: right;
+  color: #999;
+}
+
+.show-page-description {
+  font-size: medium;
+  padding: 50px 0;
+}
+
+.tiny-content-provider-logo {
+  max-width: 32px;
+  border-radius: 2px;
+  padding-left: 5px;
+}
+
+.small-content-provider-logo {
+  max-width: 64px;
+  border-radius: 4px;
+  padding-left: 10px;
+}
+
+.medium-content-provider-logo {
+  max-width: 98%;
+  //border-radius: 5px;
+  margin: 0 10px 0 0;
+}
+
+.small-trainer-logo {
+  max-width: 80px;
+  border-radius: 4px;
+  padding-left: 10px;
+}
+
+.medium-trainer-logo {
+  max-width: 160px;
+  border-radius: 4px;
+  padding-left: 0;
+}
+
+.large-trainer-logo {
+  max-width: 240px;
+  border-radius: 4px;
+  padding-left: 0;
+}
+
+.search-results-count {
+  font-size: medium;
+  font-weight: bold;
+  margin-top: 5px;
+  padding-top: 5px;
+  padding-bottom: 10px;
+}
+
+.welcome-text {
+  padding: 20px;
+  text-align: center;
+}
+
+.panel-heading {
+  display: block;
+}
+
+.panel-default .panel-title {
+  font-size: 13px;
+  color: #005d7a;
+}
+
+.panel-default .panel-title a {
+  text-decoration: none;
+  color: #005d7a;
+}
+
+.panel-heading .accordion-toggle:after {
+  /* symbol for "opening" panels */
+  font-family: 'Glyphicons Halflings'; /* essential for enabling glyphicon */
+  content: "\e113"; /* adjust as needed, taken from bootstrap.css */
+  float: right; /* adjust as needed */
+}
+
+.panel-heading .accordion-toggle.collapsed:after {
+  /* symbol for "collapsed" panels */
+  content: "\e114"; /* adjust as needed, taken from bootstrap.css */
+}
+
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+  color: #337ab7;
+}
+
+.content_action {
+  float: right;
+  margin-top: -5px;
+  margin-right: -7px;
+}
+
+// Fix for simple form issue: http://stackoverflow.com/questions/6748446/rails-simple-form-gives-dots-under-stars-for-required-fields-better-way-to-remo
+ibbr,
+accronym {
+  border-bottom: 0 !important;
+}
+
+/* try adding !important  after 0px if doesn't work */
+
+// Multiple input list on forms with + button to add more input fields dynamically
+.multiple-input-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.multiple-list-item {
+  padding: 3px;
+  margin: 3px 3px 3px 0;
+  background-color: whitesmoke;
+  border-radius: 4px;
+  width: 43%;
+  display: inline;
+}
+
+.multiple-input {
+  width: 85%;
+  display: inline;
+}
+
+.multiple-input-delete {
+  background: none;
+  border: none;
+}
+
+.dropdown-option {
+  cursor: pointer;
+
+  &:hover {
+    background: $dropdown-link-hover-bg;
+  }
+}
+
+.dropdown-option-delete {
+  background: none;
+  border: none;
+}
+
+.info-block {
+  color: #005d7a;
+  float: right;
+  font-size: 20px;
+  margin: 0;
+  width: 28px;
+}
+
+/* The max width is dependant on the container (more info below) */
+.popover {
+  max-width: 500px !important; /* Max Width of the popover (depending on the container!) */
+}
+
+// To make bootstrap button wrap button text into multiple lines
+.btn {
+  white-space: normal !important;
+}
+
+// Override margin for boostrap-s page-header
+.page-header {
+  margin: 20px 0 20px;
+}
+
+.keyword-pill {
+  color: #fff;
+  background-color: $grey-blue;
+  margin-bottom: 5px;
+  display: inline-block;
+  font-weight: normal;
+  text-align: center;
+  vertical-align: middle;
+  touch-action: manipulation;
+  background-image: none;
+  border: 1px solid transparent;
+  white-space: normal !important;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  border-radius: 4px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+// Vertically aligned
+.vertical-align {
+  display: flex;
+  flex-direction: row;
+}
+
+.vertical-align > [class^="col-"],
+.vertical-align > [class*=" col-"] {
+  display: flex;
+  align-items: center; /* Align the flex-items vertically */
+  //justify-content: center; /* Optional, to align inner flex-items horizontally within the column  */
+}
+
+ul.featureblocks {
+  padding: 10px 0;
+  margin: 0 -10px;
+  list-style: none;
+  overflow: auto;
+
+  li {
+    float: left;
+    width: 20%;
+    padding: 0 12px;
+    border-right: 1px dotted #ccc;
+
+    &:last-child {
+      border: none;
+    }
+
+    @media (max-width: $screen-md) {
+      width: 50%;
+      border-right: none;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      margin-top: 10px;
+      font-size: 20px;
+      line-height: 24px;
+    }
+
+    a {
+      color: #444;
+    }
+
+    p {
+      margin: 5px 0;
+    }
+  }
+
+  li.pair {
+    width: 50%;
+  }
+
+  li.triple {
+    width: 33%;
+  }
+
+  li.quad {
+    width: 25%;
+  }
+}
+
+.searchbox {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 30px;
+
+  form {
+    padding-right: 10px;
+    background-color: #fff;
+    text-align: center;
+    line-height: 2;
+    font-size: large;
+    margin: auto;
+    max-width: 800px;
+    border: 1px solid #ccc;
+
+    .searchbox-wrapper {
+      display: flex;
+    }
+
+    .searchbox-field {
+      border: none;
+      background: transparent;
+      padding: 15px 15px 15px 25px;
+      flex: 1;
+      min-width: 220px;
+    }
+
+    .searchbox-btn {
+      border: none;
+      background: transparent;
+      padding: 5px 15px;
+      flex-shrink: 0;
+    }
+  }
+}
+
+sup {
+  vertical-align: top;
+  position: relative;
+  top: 5px;
+}
+
+.announcement {
+  color: #333;
+  border: 1px solid #ddd;
+  background: #ffc;
+  padding: 0.3em 0.6em;
+  margin-bottom: 1em;
+  line-height: 1.7;
+}
+
+#front-page-announcement {
+  font-size: 120%;
+  font-weight: bold;
+  text-align: center;
+}
+
+#flash-container {
+  text-align: center;
+}
+
+.schemaorg-element {
+  display: none;
+}
+
+.responsive-search-box {
+  float: right;
+  width: 300px;
+
+  @include xs {
+    float: none;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}
+
+.info-box {
+  .info-box-header {
+    padding: 10px;
+    background-color: #f6f6f6;
+    border-radius: 4px;
+  }
+
+  .info-box-content {
+    margin-top: 10px;
+  }
+}
+
+.muted {
+  color: #999;
+}
+
+.preview-image {
+  overflow: auto;
+
+  > img {
+    width: 100px;
+    max-height: 150px;
+    margin: 0 10px 10px 0;
+    float: left;
+  }
+}
+
+.bounding-box {
+  padding: 19px;
+  margin-bottom: 20px;
+  border: 1px solid #e3e3e3;
+  border-radius: 4px;
+}
+
+.info-icon {
+  font-size: 24px;
+}
+
+.info-icon-small {
+  font-size: 16px;
+}
+
+.info-icon-large {
+  font-size: 48px;
+}
+
+.gap {
+  padding: 0 5px;
+}
+
+.dropdown-option-delete,
+a.delete-list-item,
+a.delete-collaboration,
+a.delete-internal-resource {
+  vertical-align: middle;
+  color: $brand-danger;
+  font-weight: bold;
+  font-size: 120%;
+
+  &:hover {
+    color: darken($brand-danger, 20%);
+  }
+}
+
+.tool-suggestions-header {
+  margin-bottom: 20px;
+}
+
+.external-links {
+  margin-top: 10px;
+}
+
+.fresh-icon {
+  color: green;
+}
+
+.stale-icon {
+  color: orangered;
+  padding: 2px;
+}
+
+.missing-icon {
+  color: orangered;
+  padding: 2px;
+}
+
+.days_ago_text {
+  color: grey;
+  font-style: italic;
+}
+
+.latest_resource_description {
+  /*
+  min-width: 500px;
+  min-height: 20px;
+  */
+  word-wrap: break-word;
+}
+
+.pagination {
+  display: flex;
+  flex-wrap: wrap; /* optional. only if you want the items to wrap */
+  justify-content: center; /* for horizontal alignment */
+}
+
+#gravatar_image {
+  margin-bottom: 10px;
+}
+
+.btn-elixir {
+  @include button-variant(white, $elixir-orange, white);
+
+  background-image: image-url('elixir_white_small.png');
+  background-repeat: no-repeat;
+  background-position: 7px 7px;
+  padding-left: 32px;
+  cursor: pointer;
+  vertical-align: middle;
+}
+
+div.legal-block {
+  max-width: 800px;
+  margin: auto;
+}
+
+input.loading {
+  background: image-url('ajax-loader.gif') no-repeat right center;
+}
+
+.btn.loading {
+  padding-right: 24px;
+  background: image-url('ajax-loader.gif') no-repeat right center;
+}
+
+.url-wrap {
+  display: inline-block;
+  word-wrap: break-word;
+  word-break: break-all;
+  overflow-wrap: break-word;
+}
+
+.loading_image {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.bs-type-selectors li {
+  display: inline-block;
+  padding: 5px;
+}
+
+input[type=checkbox].field-lock {
+  display: none;
+}
+
+input[type=checkbox].field-lock + label:before {
+  font-family: FontAwesome;
+  cursor: pointer;
+  display: inline-block;
+  content: "\f09c";
+  letter-spacing: 10px;
+  margin-left: 0.5em;
+  vertical-align: middle;
+  width: 1.5em;
+}
+
+input[type=checkbox].field-lock:checked + label:before {
+  content: "\f023";
+}
+
+input[type=checkbox].field-lock:checked + label:before,
+.field-lock-example-locked {
+  color: $brand-success;
+  font-size: 110%;
+}
+
+input[type=checkbox].field-lock + label:before,
+.field-lock-example-open {
+  color: $brand-warning;
+  font-size: 110%;
+}
+
+.keyword-button {
+  margin-right: 5px;
+}
+
+.external-button {
+  margin-right: 5px;
+}
+
+.alert-info a {
+  text-decoration: underline;
+}
+
+#why-register {
+  ul {
+    font-size: 120%;
+
+    li {
+      margin: 1em 0;
+    }
+  }
+}
+
+.video_frame {
+  padding: 20px 0;
+  width: 560px;
+  height: 345px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.include-where {
+  font-size: 160%;
+  text-align: center;
+  margin: 10px;
+}
+
+.include-where-graphic {
+  width: 200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.motivation_box {
+  margin: 20px;
+}
+
+.include-where-text {
+  text-align: center;
+}
+
+.widgets_guide {
+  width: 80%;
+}
+
+.about-icons {
+  font-size: 10em;
+  color: gray;
+}
+
+.about-block {
+  padding: 10px 30px;
+}
+
+.odd-about-block {
+  padding: 20px;
+  background-color: #ededed;
+  border-radius: 5px;
+}
+
+.even-about-block {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+}
+
+.sub-about-block {
+  background-color: white;
+  padding: 12px;
+  margin: 10px;
+  border-radius: 10px;
+}
+
+.about-resource {
+  padding: 0 50px;
+}
+
+.licence-title {
+  text-align: center;
+}
+
+.licence-logo {
+  font-size: 5em;
+  color: gray;
+}
+
+.about-resource-icon {
+  padding: 35px 10px;
+  text-align: center;
+}
+
+.register-condition {
+  font-size: medium;
+  text-align: center;
+}
+
+.register-condition-graphic {
+  text-align: center;
+  width: 150px;
+  margin: auto;
+  padding: 20px 0;
+}
+
+.struct_data_type_logo {
+  max-width: 100px;
+  padding: 20px 0;
+}
+
+.data-type-examples {
+  padding-top: 20px;
+}
+
+.open-access-box {
+  background-color: white;
+  border-radius: 10px;
+  margin: 0 20px;
+  padding: 15px 5px;
+}
+
+.open-access-licence {
+  //width: 250px;
+}
+
+.open-access-location {
+  //width: 250px;
+}
+
+/* all links */
+.about-page-menu .nav > li > a {
+  color: #616161;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+/* nested links */
+.about-page-menu .nav .nav > li > a {
+  padding-top: 1px;
+  padding-bottom: 1px;
+  padding-left: 30px;
+  font-size: 12px;
+}
+
+.about-page-menu .nav > .active > a {
+  background-color: #f0f0f0;
+}
+
+.user_processing_consent {
+  @include alert-variant($alert-info-bg, $alert-info-border, $alert-info-text);
+
+  padding: 0 10px;
+  border-radius: 4px;
+  border-style: solid;
+  border-width: 1px;
+
+  a {
+    text-decoration: underline;
+  }
+}
+
+.quick-links {
+  width: 80%;
+  text-align: center;
+  margin-left: 10%;
+}
+
+.selected-tab {
+  color: inherit;
+  text-decoration: underline;
+}
+
+.term_suggestions .dropdown-backdrop {
+  display: none;
+}
+
+.funding-logo {
+  width: 100px;
+  margin: 15px;
+}
+
+.list-card {
+  @include floating-card;
+  width: 45%;
+  margin: 0 10px 10px 0;
+  position: relative;
+  display: inline-block;
+  padding: 10px 15px;
+
+  .list-card-heading {
+    display: block;
+    padding: 5px 0;
+    font-size: 16px;
+    line-height: 1.3;
+  }
+}
+
+.questionnaire {
+  background-color: $dresa-green;
+}
+
+.aai-login {
+  width: 120px;
+}
+

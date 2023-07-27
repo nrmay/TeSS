@@ -1,0 +1,182 @@
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "WebSite",
+  "name": TeSS::Config.site['title_short'],
+  "alternateName": TeSS::Config.site['title'],
+  "url": "<%= root_url %>",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "<%= root_url %>search?utf8=%E2%9C%93&q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}
+
+
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "url": "<%= root_url %>",
+  "logo": "<%= image_url TeSS::Config.site['logo'] %>"
+}
+
+
+</script>
+
+<%# Welcome text %>
+<div class="welcome-text">
+  <h2 class="module-heading" style="margin-top: 5px;"><%== raw t 'home.welcome' %></h2>
+  <p><%== raw t 'home.subtitle' %></p>
+  <h4 class="text-center" style="margin-top: 1em;">
+    <div class="hidden-xs">Getting Started?
+      See our <%= link_to 'User Manual', '/DReSA-User-Manual.pdf', target: '_blank', style: 'color: #00b8b6' %>
+      and <%= link_to 'Video Guides', 'http://videos.dresa.org.au', target: '_blank', style: 'color: #00b8b6' %>
+    </div>
+    <div class="hidden-lg hidden-md hidden-sm">
+      <div>
+        Getting Started?
+      </div>
+      <div class="hidden-lg hidden-md hidden-sm">
+        See our <%= link_to 'User Manual', '/DReSA-User-Manual.pdf', target: '_blank', style: 'color: #00b8b6' %>
+        and <%= link_to 'Video Guides', 'http://videos.dresa.org.au', target: '_blank', style: 'color: #00b8b6' %>
+      </div>
+    </div>
+  </h4>
+</div>
+
+<%# Big search box %>
+<div class="searchbox">
+  <%= form_tag search_path, method: :get, role: 'search' do %>
+    <div class="searchbox-wrapper">
+      <input type="text" class="searchbox-field" name="q"
+             placeholder="Search <%= TeSS::Config.site['title_short'] %>..." autofocus="autofocus">
+      <button type="submit" class="searchbox-btn">
+        <i class="fa fa-search"></i>
+      </button>
+    </div>
+  <% end %>
+</div>
+
+<%# Feature buttons %>
+<ul class="featureblocks">
+  <% if TeSS::Config.feature['events'] == true %>
+    <li class="<%= @liclass %>">
+      <%= link_to events_path do %>
+        <div class="hidden-sm hidden-xs">
+          <h2>Events</h2>
+          <%= image_tag("dresa/Training_Default.png", height: "#{@icon_height}px", alt: "Events") %>
+        </div>
+        <div class="hidden-lg hidden-md hidden-xs">
+          <h2>Events</h2>
+          <%= image_tag("dresa/Training_Default.png", height: "#{@icon_height / 2}px", alt: "Events") %>
+        </div>
+        <div class="hidden-lg hidden-md hidden-sm">
+          <h4>Events</h4>
+          <%= image_tag("dresa/Training_Default.png", height: "#{@icon_height / 3}px", alt: "Events") %>
+        </div>
+      <% end %>
+      <p><%== raw t 'home.events_message' %></p>
+    </li>
+  <% end %>
+
+  <% if TeSS::Config.feature['materials'] == true %>
+    <li class="<%= @liclass %>">
+      <%= link_to materials_path do %>
+        <div class="hidden-sm hidden-xs">
+          <h2>Materials</h2>
+          <%= image_tag("dresa/Training_Materials_Default.png", height: "#{@icon_height}px", alt: "Materials") %>
+        </div>
+        <div class="hidden-lg hidden-md hidden-xs">
+          <h2>Materials</h2>
+          <%= image_tag("dresa/Training_Materials_Default.png", height: "#{@icon_height / 2}px", alt: "Materials") %>
+        </div>
+        <div class="hidden-lg hidden-md hidden-sm">
+          <h4>Materials</h4>
+          <%= image_tag("dresa/Training_Materials_Default.png", height: "#{@icon_height / 3}px", alt: "Materials") %>
+        </div>
+      <% end %>
+      <p><%== raw t 'home.materials_message' %></p>
+    </li>
+  <% end %>
+
+  <% if TeSS::Config.feature['workflows'] == true %>
+    <li class="<%= @liclass %>">
+      <%= link_to workflows_path do %>
+        <div class="hidden-sm hidden-xs">
+          <h2>Workflows</h2>
+          <%= image_tag("workflows.png", height: "#{@icon_height}px", alt: "Workflows") %>
+        </div>
+        <div class="hidden-lg hidden-md hidden-xs">
+          <h2>Workflows</h2>
+          <%= image_tag("workflows.png", height: "#{@icon_height / 2}px", alt: "Workflows") %>
+        </div>
+        <div class="hidden-lg hidden-md hidden-sm">
+          <h4>Workflows</h4>
+          <%= image_tag("workflows.png", height: "#{@icon_height / 3}px", alt: "Workflows") %>
+        </div>
+      <% end %>
+      <p><%== raw t 'home.workflows_message' %></p>
+    </li>
+  <% end %>
+
+  <% if TeSS::Config.feature['providers'] == true %>
+    <li class="<%= @liclass %>">
+      <%= link_to content_providers_path do %>
+        <div class="hidden-sm hidden-xs">
+          <h2>Providers</h2>
+          <%= image_tag("dresa/Training_Providers_Default.png", height: "#{@icon_height}px", alt: "Providers") %>
+        </div>
+        <div class="hidden-lg hidden-md hidden-xs">
+          <h2>Providers</h2>
+          <%= image_tag("dresa/Training_Providers_Default.png", height: "#{@icon_height / 2}px", alt: "Providers") %>
+        </div>
+        <div class="hidden-lg hidden-md hidden-sm">
+          <h4>Providers</h4>
+          <%= image_tag("dresa/Training_Providers_Default.png", height: "#{@icon_height / 3}px", alt: "Providers") %>
+        </div>
+      <% end %>
+      <p><%== raw t 'home.providers_message' %></p>
+    </li>
+  <% end %>
+
+  <% if TeSS::Config.feature['trainers'] == true %>
+    <li class="<%= @liclass %>">
+      <%= link_to trainers_path do %>
+        <div class="hidden-sm hidden-xs">
+          <h2>Trainers</h2>
+          <%= image_tag("dresa/Trainers_Default.png", height: "#{@icon_height}px", alt: "Trainers") %>
+        </div>
+        <div class="hidden-lg hidden-md hidden-xs">
+          <h2>Trainers</h2>
+          <%= image_tag("dresa/Trainers_Default.png", height: "#{@icon_height / 2}px", alt: "Trainers") %>
+        </div>
+        <div class="hidden-lg hidden-md hidden-sm">
+          <h4>Trainers</h4>
+          <%= image_tag("dresa/Trainers_Default.png", height: "#{@icon_height / 3}px", alt: "Trainers") %>
+        </div>
+      <% end %>
+      <p><%== raw t 'home.trainers_message' %></p>
+    </li>
+  <% end %>
+</ul>
+
+<% if @resources.length > 0 -%>
+  <div id="materials-title">
+    <h3>Latest Content in <%= TeSS::Config.site['title_short'] %></h3>
+  </div>
+  <% @resources.each do |resource| %>
+    <%= render layout: 'common/mixed_resources', locals: { resource: resource } do %>
+      <% days = ((Time.now - resource.created_at) / 1.day).to_i %>
+      <% if days == 0 %>
+        <div class="days_ago_text">Added to <%= TeSS::Config.site['title_short'] %> today</div>
+      <% else %>
+        <div class="days_ago_text">
+          Added to <%= TeSS::Config.site['title_short'] %> <%= pluralize(days, "day") %> ago
+        </div>
+      <% end %>
+    <% end -%>
+  <% end -%>
+<% end -%>

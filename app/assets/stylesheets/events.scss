@@ -1,0 +1,43 @@
+#google-map-form {
+  position: relative;
+  height: 300px;
+  width: 100%;
+  border: 1px solid #ccc;
+  margin-top: 10px;
+}
+
+.google-map {
+  height: 250px;
+  width: 400px;
+  float: right;
+  margin: 0 0 10px 10px;
+
+  @include xs {
+    float: none;
+    width: 100%;
+    margin-left: 0;
+  }
+}
+
+.suggestion_action {
+  z-index: 2;
+}
+
+.suggestions {
+  padding: 1px;
+  z-index: 1;
+}
+
+.suggestions:hover {
+  z-index: 2;
+}
+
+#report {
+  clear: both;
+}
+
+#map-loading-screen {
+  width: 20%;
+  margin-left: 40%;
+  padding-top: 100px;
+}

@@ -1,0 +1,5 @@
+name: default 
+logfile: log/ingestion.log
+loglevel: 0
+username: scraper
+sources:

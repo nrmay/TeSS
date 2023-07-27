@@ -1,0 +1,33 @@
+body {
+  background-color: #fff;
+  color: #333;
+  font-family: Montserrat, verdana, arial, helvetica, sans-serif;
+  font-size: 13px;
+  line-height: 18px;
+}
+
+p,
+ol,
+ul,
+td {
+  font-family: Montserrat, verdana, arial, helvetica, sans-serif;
+  font-size: 13px;
+  line-height: 18px;
+}
+
+pre {
+  background-color: #eee;
+  padding: 10px;
+  font-size: 11px;
+}
+
+div {
+  &.field,
+  &.actions {
+    margin-bottom: 10px;
+  }
+}
+
+#notice {
+  color: green;
+}

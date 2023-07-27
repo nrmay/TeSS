@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+
+<%= render 'layouts/head' %>
+
+<body>
+
+<%= render :partial=>"layouts/header" %>
+
+<div id="main-container" class="container-fluid">
+  <%= render 'common/breadcrumbs' if @breadcrumbs %>
+
+  <%# Main content of every page -%>
+  <%= yield %>
+</div>
+
+<%= render :partial=>"layouts/footer" %>
+
+</body>
+</html>
