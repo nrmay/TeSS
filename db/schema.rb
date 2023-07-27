@@ -318,6 +318,7 @@ ActiveRecord::Schema.define(version: 2022_04_08_025744) do
     t.string "slug"
     t.boolean "public", default: false
     t.text "description"
+<<<<<<< HEAD
     t.text "location"
     t.string "orcid"
     t.string "experience"

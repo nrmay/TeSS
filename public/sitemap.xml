@@ -1,15 +1,1 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-<sitemap>
-<loc>https://test.dresa.org.au/sitemaps/site.xml</loc>
-</sitemap>
-<sitemap>
-<loc>https://test.dresa.org.au/sitemaps/materials.xml</loc>
-</sitemap>
-<sitemap>
-<loc>https://test.dresa.org.au/sitemaps/events.xml</loc>
-</sitemap>
-<sitemap>
-<loc>https://test.dresa.org.au/sitemaps/content_providers.xml</loc>
-</sitemap>
-</sitemapindex>
+sitemaps/sitemap.xml
