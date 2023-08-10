@@ -3,7 +3,6 @@ require 'private_address_check/tcpsocket_ext'
 
 # The controller for actions related to the core application
 class ApplicationController < ActionController::Base
-  
   include BreadCrumbs
   include PublicActivity::StoreController
 
@@ -12,12 +11,10 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
-  #protect_from_forgery prepend: true
 
   # Should allow token authentication for API calls
   acts_as_token_authentication_handler_for User, except: [:index, :show, :embed, :check_exists, :handle_error, :count,
                                                           :redirect] #only: [:new, :create, :edit, :update, :destroy]
-  #skip_before_action :verify_authenticity_token
   # User auth should be required in the web interface as well; it's here rather than in routes so that it
   # doesn't override the token auth, above.
   before_action :authenticate_user!, except: [:index, :show, :embed, :check_exists, :handle_error, :count, :redirect]
