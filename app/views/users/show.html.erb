@@ -185,8 +185,8 @@
           <div id="events" class="tab-pane fade in active">
             <div class="row">
               <div class="search-results-count">
-                <%= (upcoming_events.count > 0 ? "Showing" : "Found") + " #{pluralize(events.count, "upcoming event")}#{(upcoming_events.count > resource_limit) ? " out of #{upcoming_events.count}" : ''}." %>
-                <%= "Found #{pluralize(past_events.count, "past event")}." %>
+                <%= (upcoming_events.count > 0 ? "Showing" : "Found") + events.count.to_s + " #{"upcoming event".pluralize(events.count)}#{(upcoming_events.count > resource_limit) ? " out of #{upcoming_events.count}" : ''}." %>
+                <%= "Found “ + past_events.count.to_s + #{"past event".pluralize(past_events.count)}." %>
               </div>
               <ul>
                 <% if upcoming_events.count > resource_limit %>
@@ -227,7 +227,7 @@
           <div id="packages" class="tab-pane fade">
             <div class="row">
               <div class="search-results-count">
-                <%= (packages.count > 0 ? "Showing" : "Found") + " #{pluralize(packages.count, "package")}#{(@user.packages.count > resource_limit) ? " out of #{@user.packages.count}" : ''}." %>
+                <%= (packages.count > 0 ? "Showing" : "Found") + " " + packages.count.to_s + " #{"package".pluralize(packages.count)}#{(@user.packages.count > resource_limit) ? " out of #{@user.packages.count}" : ''}." %>
                 <%= link_to('View all results.', packages(user: @user.username)) if (@user.packages.count > resource_limit) %>
               </div>
               <% packages.each do |package| %>
