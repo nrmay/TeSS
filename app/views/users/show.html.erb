@@ -185,8 +185,8 @@
           <div id="events" class="tab-pane fade in active">
             <div class="row">
               <div class="search-results-count">
-                <%= (upcoming_events.count > 0 ? "Showing" : "Found") + events.count.to_s + " #{"upcoming event".pluralize(events.count)}#{(upcoming_events.count > resource_limit) ? " out of #{upcoming_events.count}" : ''}." %>
-                <%= "Found “ + past_events.count.to_s + #{"past event".pluralize(past_events.count)}." %>
+                <%= (upcoming_events.count > 0 ? "Showing" : "Found") + " " + events.count.to_s + " #{"upcoming event".pluralize(events.count)}#{(upcoming_events.count > resource_limit) ? " out of #{upcoming_events.count}" : ''}." %>
+                <%= "Found " + past_events.count.to_s + " #{"past event".pluralize(past_events.count)}." %>
               </div>
               <ul>
                 <% if upcoming_events.count > resource_limit %>
@@ -212,7 +212,7 @@
           <div id="materials" class="tab-pane fade">
             <div class="row">
               <div class="search-results-count">
-                <%= (materials.count > 0 ? "Showing" : "Found") + " #{pluralize(materials.count, "material")}#{(@user.materials.count > resource_limit) ? " out of #{@user.materials.count}" : ''}." %>
+                <%= (materials.count > 0 ? "Showing" : "Found") + " " + materials.count.to_s + " #{"material".pluralize(materials.count)}#{(@user.materials.count > resource_limit) ? " out of #{@user.materials.count}" : ''}." %>
                 <%= link_to('View all results.', materials_path(user: @user.username)) if (@user.materials.count > resource_limit) %>
               </div>
               <% materials.each do |material| %>
