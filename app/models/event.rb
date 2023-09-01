@@ -131,8 +131,8 @@ class Event < ApplicationRecord
   #                   :target_audience, :venue)
 
   def self.facet_fields
-    field_list = %w( city country content_provider cost_basis eligibility end
-                      event_types fields keywords online organizer start
+    field_list = %w( city country content_provider cost_basis eligibility
+                      event_types fields keywords online organizer
                       target_audience venue )
     field_list.append('operations') unless TeSS::Config.feature['disabled'].include? 'operations'
     field_list.append('scientific_topics') unless TeSS::Config.feature['disabled'].include? 'topics'
