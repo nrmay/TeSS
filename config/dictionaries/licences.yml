@@ -4,7 +4,7 @@
     domain_data: false
     domain_software: true
     family: ""
-    id: "AAL"
+    id: "aal"
     maintainer: ""
     od_conformance: "not reviewed"
     osd_conformance: "approved"
@@ -167,14 +167,26 @@
     status: "active"
     title: "Computer Associates Trusted Open Source License 1.1 (CATOSL-1.1)"
     url: "http://www.opensource.org/licenses/CATOSL-1.1"
+  cc-by-4.0:
+    domain_content: true
+    domain_data: true
+    domain_software: false
+    family: "Creative Commons"
+    id: "cc-by-4.0"
+    maintainer: "Creative Commons"
+    od_conformance: "rejected"
+    osd_conformance: "not reviewed"
+    status: "active"
+    title: "Creative Commons Attribution 4.0 lower case"
+    url: "https://creativecommons.org/licenses/by/4.0/"
   CC-BY-4.0:
     domain_content: true
     domain_data: true
     domain_software: false
-    family: ""
+    family: "Creative Commons"
     id: "CC-BY-4.0"
     maintainer: "Creative Commons"
-    od_conformance: "approved"
+    od_conformance: "rejected"
     osd_conformance: "not reviewed"
     status: "active"
     title: "Creative Commons Attribution 4.0"

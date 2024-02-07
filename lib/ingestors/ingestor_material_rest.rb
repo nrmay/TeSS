@@ -78,7 +78,7 @@ class IngestorMaterialRest < IngestorMaterial
 
       end
       if !links.nil?
-        material.url = links['html'] unless links['html'].nil?
+        material.url = links['self_html'] unless links['self_html'].nil?
       end
 
       # add material to array
