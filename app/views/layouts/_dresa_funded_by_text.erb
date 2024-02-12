@@ -1,0 +1,13 @@
+<!-- show on all screens -->
+<div class="col-md-10 col-sm-10 col-xs-12 funder-text">
+  <%= raw t 'footer.funded_by' %>
+</div>
+
+<!-- show on large, medium and small screens -->
+<div class="col-md-2 col-sm-2 hidden-xs">
+  <%= link_to 'https://www.dese.gov.au/ncris', class: 'funder-logo', target: '_blank' do %>
+    <%= image_tag 'supporters/NCRIS-Logo-Inverted.png', style: 'height: 80px;',
+                  title: 'National Collaborative Research Infrastructure Strategy (NCRIS)' %>
+  <% end %>
+</div>
+
