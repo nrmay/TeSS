@@ -1,25 +1,16 @@
 <!-- show on large and medium screens -->
-<div class="col-md-3 hidden-sm hidden-xs">
-  <%= link_to 'https://www.pawsey.org.au/', class: 'funder-logo', target: '_blank' do %>
-    <%= image_tag 'supporters/Pawsey-Logo.png', title: 'Pawsey Supercomputing Research Centre' %>
-  <% end %>
-</div>
-<div class="col-md-3 hidden-sm hidden-xs">
+<div class="col-md-4 hidden-sm hidden-xs">
   <%= link_to 'https://www.ardc.edu.au/', class: 'funder-logo', target: '_blank' do %>
     <%= image_tag 'supporters/ARDC-Logo.png', title: 'Australian Research Data Commons' %>
   <% end %>
 </div>
-
-<!-- show on all screens -->
-<div class="col-md-4 col-sm-8 col-xs-12 funder-text">
-  <%= raw t 'footer.funded_by' %>
-</div>
-
-<!-- show on large, medium and small screens -->
-<div class="col-md-2 col-sm-4 hidden-xs">
-  <%= link_to 'https://www.dese.gov.au/ncris', class: 'funder-logo', target: '_blank' do %>
-    <%= image_tag 'supporters/NCRIS-Logo-Inverted.png', style: 'height: 80px;',
-                  title: 'National Collaborative Research Infrastructure Strategy (NCRIS)' %>
+<div class="col-md-4 hidden-sm hidden-xs">
+  <%= link_to 'https://www.nci.org.au/', class: 'funder-logo', target: '_blank' do %>
+    <%= image_tag 'supporters/NCI-Australia-Logo-Inverted.png', title: 'National Computational Infrastructure Australia' %>
   <% end %>
 </div>
-
+<div class="col-md-4 hidden-sm hidden-xs">
+  <%= link_to 'https://www.pawsey.org.au/', class: 'funder-logo', target: '_blank' do %>
+    <%= image_tag 'supporters/Pawsey-Logo.png', title: 'Pawsey Supercomputing Research Centre' %>
+  <% end %>
+</div>

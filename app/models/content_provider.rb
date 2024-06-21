@@ -122,7 +122,7 @@ class ContentProvider < ApplicationRecord
 
       # transfer events to the provider's user
       editor.events.each do |event|
-        if event.content_provider.id == id
+        if !event.content_provider.nil? and event.content_provider.id == id
           event.user = user
           event.save!
         end
@@ -130,7 +130,7 @@ class ContentProvider < ApplicationRecord
 
       # transfer materials to the provider's user
       editor.materials.each do |material|
-        if material.content_provider.id == id
+        if !material.content_provider.nil? and material.content_provider.id == id
           material.user = user
           material.save!
         end

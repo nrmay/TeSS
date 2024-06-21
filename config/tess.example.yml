@@ -97,7 +97,7 @@ dresa: &dresa
     logo_open_graph: 'dresa/DReSA_Symbol.png'
     logo_email: 'dresa/DReSA_Extended_Default.png'
     theme: 'en-AU'
-    repository: 'https://github.com/nrmay/TeSS'
+    repository: 'https://github.com/dresa-org-au/TeSS'
     supported_by: 'dresa_supported_by.erb'
     widget_example: 'elixir_widget_example'
   gmaps:

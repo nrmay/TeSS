@@ -95,6 +95,11 @@
   <!-- Field: Organiser -->
   <%= f.input :organizer, field_lock: true, label: 'Organiser', input_html: { title: t('events.hints.organizer') } %>
 
+  <!-- Field: Content Provider -->
+  <%= f.input :content_provider_id, label: 'Content provider (where the event metadata is obtained from)',
+              collection: current_user.get_editable_providers, label_method: :title, value_method: :id, include_blank: true,
+              field_lock: true %>
+
   <!-- Field: Contact -->
   <%= f.input :contact, input_html: { rows: '5', title: t('events.hints.contact') }, field_lock: true %>
 
@@ -154,11 +159,6 @@
                 prompt: 'Select the currency...', input_html: { title: t('events.hints.cost_currency') } %>
     <%= f.input :cost_value, as: :decimal, label: 'Cost', input_html: { title: t('events.hints.cost_value'), min: '0' } %>
   </div>
-
-  <!-- Field: Content Provider -->
-  <%= f.input :content_provider_id, label: 'Content provider (where the event metadata is obtained from)',
-              collection: current_user.get_editable_providers, label_method: :title, value_method: :id, include_blank: true,
-              field_lock: true %>
 
   <!-- Field: Materials -->
   <%= f.internal_resource :materials %>

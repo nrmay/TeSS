@@ -17,7 +17,7 @@
   <%= f.input :content_provider_type, label: 'Type', collection: ContentProvider::PROVIDER_TYPE, include_blank: false %>
 
   <% if current_user.is_admin? %>
-    <%= f.input :user_id, label: 'Owner', collection: User.all %>
+    <%= f.input :user_id, label: 'Owner', collection: User.order('LOWER(users.username)').all%>
   <% end %>
 
   <%= f.dropdown :approved_editors, options: get_list_of_user_names, label: 'Approved Editors' %>
